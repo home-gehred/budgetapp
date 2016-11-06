@@ -1,4 +1,5 @@
 import React from "react";
+import { ListGroupItem } from 'react-bootstrap';
 
 export default class ExpenseItem extends React.Component {
   constructor() {
@@ -7,9 +8,12 @@ export default class ExpenseItem extends React.Component {
 
   render() {
     return (
-      <li>
-        <div><h5>expensename</h5><p>$100.00</p></div>
-      </li>
+      <div>
+        <a href="#" class="list-group-item">
+          <h4 class="list-group-item-heading">{this.props.name}</h4>
+          <p class="list-group-item-text">${this.props.amount}</p>
+        </a>
+      </div>
     );
   }
 }
