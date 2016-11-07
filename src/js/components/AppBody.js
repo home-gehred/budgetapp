@@ -1,5 +1,5 @@
 import React from "react";
-
+import TimePeriod from "./timeperiod/TimePeriod"
 import Expenses from "./expense/Expenses";
 
 export default class AppBody extends React.Component {
@@ -10,6 +10,7 @@ export default class AppBody extends React.Component {
   render() {
     return (
         <div>
+          <TimePeriod />
           <Expenses />
         </div>
     );
