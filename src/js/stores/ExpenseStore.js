@@ -28,8 +28,7 @@ class Expenses extends EventEmitter {
     ];
   }
 
-  createExpense(name, amount)
-  {
+  createExpense(name, amount) {
     this.expenses.push({
       id: Date.now(),
       name,
@@ -44,11 +43,20 @@ class Expenses extends EventEmitter {
 
   handleDispatchAction (action) {
     console.log("ExpenseStore received: ", action);
-    switch (action.type)
-    {
-      case "CREATE_EXPENSE":
+    switch (action.type) {
+      case "CREATE_EXPENSE": {
         this.createExpense(action.name, action.amount);
         break;
+      }
+      case "FETCHING_EXPENSES": {
+        this.emit("fetching_expenses");
+        break;
+      }
+      case "FETCH_EXPENSES": {
+        this.expenses = action.expenses;
+        this.emit("change");
+        break;
+      }
     }
   }
 }
