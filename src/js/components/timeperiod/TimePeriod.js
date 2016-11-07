@@ -3,6 +3,7 @@ import DateRangePicker from "react-daterange-picker"
 import moment from "moment"
 import momentRange from "moment-range"
 import "../../../../node_modules/react-daterange-picker/dist/css/react-calendar.css";
+import * as TimePeriodActions from "../../actions/TimePeriodActions"
 
 export default class TimePeriod extends React.Component {
   constructor() {
@@ -20,6 +21,7 @@ export default class TimePeriod extends React.Component {
       endString: range.end.format("MMM Do YYYY"),
       fullRangeString: range.start.format("MMM Do YYYY") + " to " + range.end.format("MMM Do YYYY")
     });
+    TimePeriodActions.createTimePeriod(range);
   }
   render() {
     return (
