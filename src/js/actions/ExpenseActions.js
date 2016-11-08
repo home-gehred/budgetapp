@@ -15,26 +15,36 @@ export function fetchExpenses() {
   });
   setTimeout(function () {
     var expenses = [
-      {
-        id: 1,
-        name: "Gas/Electric",
-        amount: 280.67
-      },
-      {
-        id: 2,
-        name: "Max Education",
-        amount: 240.00
-      },
-      {
-        id: 3,
-        name: "Charlotte Education",
-        amount: 240.00
-      },
-      {
-        id: 4,
-        name: "WaterBill",
-        amount: 275.23
-      }
+        {
+          id: 1,
+          name: "Gas/Electric",
+          amount: 280.67,
+          duedate: "2016-11-22"
+        },
+        {
+          id: 2,
+          name: "Max Education",
+          amount: 240.00,
+          duedate: "2016-11-5"
+        },
+        {
+          id: 3,
+          name: "Holy Family Church",
+          amount: 65.00,
+          duedate: "2016-11-17"
+        },
+        {
+          id: 4,
+          name: "Charlotte Education",
+          amount: 240.00,
+          duedate: "2016-11-5"
+        },
+        {
+          id: 5,
+          name: "WaterBill",
+          amount: 275.23,
+          duedate: "2016-11-28"
+        }
     ];
     dispatcher.dispatch({
       type: "FETCH_EXPENSES",

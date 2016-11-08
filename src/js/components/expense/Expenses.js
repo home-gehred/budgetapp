@@ -1,16 +1,19 @@
 import React from "react";
 import ReactSpinner from "react-spinjs";
 import { ListGroup } from 'react-bootstrap';
-import ExpenseItem from "./ExpenseItem"
-import ExpenseStore from "../../Stores/ExpenseStore"
-import * as ExpenseActions from "../../actions/ExpenseActions"
+import ExpenseItem from "./ExpenseItem";
+import ExpenseStore from "../../Stores/ExpenseStore";
+import TimePeriodStore from "../../Stores/TimePeriodStore";
+import * as ExpenseActions from "../../actions/ExpenseActions";
+import moment from "moment";
 
 export default class Expenses extends React.Component {
   constructor() {
     super();
     this.state = {
       expenses: ExpenseStore.getAll(),
-      componentState: "load"
+      componentState: "load",
+      timePeriod: undefined
     }
     this.spinnerConfig = {
       opacity: 0,
@@ -20,12 +23,25 @@ export default class Expenses extends React.Component {
     };
   }
 
+  applyTimePeriod() {
+    var timePeriod = this.state.timePeriod;
+    var updatedExpenses = this.state.expenses.map((expense) => {
+      var dueDate = moment(expense.duedate, "YYYY-MM-DD");
+      expense.include = (timePeriod === undefined) ? false: timePeriod.contains(dueDate);
+      return expense;
+    });
+    this.setState({
+      expenses: updatedExpenses
+    })
+  }
+
   componentWillMount() {
     ExpenseStore.on("change", () => {
       this.setState({
         expenses: ExpenseStore.getAll(),
         componentState: "load"
-      })
+      });
+      this.applyTimePeriod();
     });
 
     ExpenseStore.on("fetching_expenses", () => {
@@ -33,6 +49,14 @@ export default class Expenses extends React.Component {
         expenses: [],
         componentState: "loading"
       })
+    });
+
+    TimePeriodStore.on("setpredicteddate", (newTimePeriod) => {
+      console.log("Expenses.EVENT newTimePeriod", newTimePeriod);
+      this.setState({
+        timePeriod: newTimePeriod
+      });
+      this.applyTimePeriod();
     });
   }
 
@@ -49,9 +73,11 @@ export default class Expenses extends React.Component {
     var expensesStyle = {
       "display": (this.state.componentState === "load") ? undefined : "none"
     }
-    console.log(expenses);
+    console.log("Expenses from state: ", expenses);
     const ExpenseComponent = expenses.map((expense) => {
-      return <ExpenseItem key={expense.id} name={expense.name} amount={expense.amount}/>
+      var parsedDate = moment(expense.duedate, "YYYY-MM-DD");
+      var duedateformatted = parsedDate.format("MMM Do YYYY");
+      return <ExpenseItem key={expense.id} name={expense.name} amount={expense.amount} include={expense.include} duedate={duedateformatted}/>
     });
     return (
       <div class="expenses-component">
