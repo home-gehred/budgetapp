@@ -8,9 +8,9 @@ import * as TimePeriodActions from "../../actions/TimePeriodActions"
 export default class TimePeriod extends React.Component {
   constructor() {
     super();
-    this.state = {value: moment()};
-    //this.state.value = new Date(2016, 11, 1);
+    this.state = {value: moment.range([moment(), moment()])};
   }
+
   handleSelect(range) {
     console.log(range);
     console.log(range.start)
@@ -31,6 +31,7 @@ export default class TimePeriod extends React.Component {
           numberOfCalendars={1}
           selectionType='range'
           onSelect={this.handleSelect.bind(this)}
+          value={this.state.value}
         />
       <div class="well well-sm">{this.state.fullRangeString}</div>
       </div>
