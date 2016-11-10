@@ -25,11 +25,22 @@ export default class Expenses extends React.Component {
 
   applyTimePeriod() {
     var timePeriod = this.state.timePeriod;
+    var expensesDue = 0;
     var updatedExpenses = this.state.expenses.map((expense) => {
       var dueDate = moment(expense.duedate, "YYYY-MM-DD");
       expense.include = (timePeriod === undefined) ? false: timePeriod.contains(dueDate);
+      if (timePeriod !== undefined) {
+        if (timePeriod.contains(dueDate)) {
+          expensesDue += expense.amount;
+        }
+      }
       return expense;
     });
+    setTimeout(function() {
+      // Cannot dispatch in the middle of dispatch event.
+      console.log("Calculated expenses for " + timePeriod.toString() + " " + expensesDue);
+      ExpenseActions.expensesDueChange(timePeriod, expensesDue);
+    }, 1000);
     this.setState({
       expenses: updatedExpenses
     })

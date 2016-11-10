@@ -52,3 +52,11 @@ export function fetchExpenses() {
     });
   }, 5000);
 }
+
+export function expensesDueChange(timeperiod, amountDue) {
+  dispatcher.dispatch({
+    type: "EXPENSES_DUE_CHANGE",
+    timeperiod,
+    amountDue
+  });
+}
