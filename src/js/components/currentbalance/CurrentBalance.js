@@ -1,15 +1,18 @@
 import React from "react";
 import moment from "moment";
 import CurrentBalanceStore from "../../Stores/CurrentBalanceStore";
+import * as Accounting from "../../accounting.js";
+
 
 export default class CurrentBalance extends React.Component {
   constructor() {
     super();
     this.state = {
-      currentBalance: 1500.32,
+      currentBalance: Accounting.formatMoney(1500.32),
+      currentBalanceFormated: Accounting.formatMoney(1500.32),
       currentBalanceDateString: moment().format("MMM Do YYYY"),
-      expensesDue: undefined,
-      predictedBalance: undefined,
+      expensesDue: Accounting.formatMoney(0.00),
+      predictedBalance: Accounting.formatMoney(1500.32),
       predictedBalanceDateString: undefined
 
     }
@@ -19,20 +22,25 @@ export default class CurrentBalance extends React.Component {
     CurrentBalanceStore.on("expensesduechange", (range, amountDue) => {
       this.setState({
         predictedBalanceDateString: range.end.format("MMM Do YYYY"),
-        expensesDue: amountDue.toString(),
-        predictedBalance: (this.state.currentBalance - amountDue).toString()
+        expensesDue: Accounting.formatMoney(amountDue),
+        predictedBalance: Accounting.formatMoney((Accounting.unformat(this.state.currentBalance) - amountDue))
       });
     });
   }
 
   changeCurrentBalance(e) {
+    var expensesDue = (this.state.expensesDue === undefined) ? 0 : Accounting.unformat(this.state.expensesDue);
     this.setState({
-      currentBalance: e.target.value
+      currentBalance: e.target.value,
+      currentBalanceFormated: Accounting.formatMoney(e.target.value),
+      predictedBalance: Accounting.formatMoney((Accounting.unformat(e.target.value) - expensesDue))
     });
   }
 
-  changePredictedBalance(e) {
-
+  formatCurrentBalance(e) {
+    this.setState({
+      currentBalance: Accounting.formatMoney(e.target.value)
+    });
   }
 
   render() {
@@ -79,12 +87,12 @@ export default class CurrentBalance extends React.Component {
         <h5>Current Balance</h5>
         <div class="input-group">
           <span class="input-group-addon">{this.state.currentBalanceDateString}</span>
-          <input type="number" class="form-control" defaultValue={this.state.currentBalance} onChange={this.changeCurrentBalance.bind(this)}/>
+          <input type="text" class="form-control" value={this.state.currentBalance} onChange={this.changeCurrentBalance.bind(this)} onBlur={this.formatCurrentBalance.bind(this)}/>
         </div>
         <h5>Predicted Balance</h5>
         <div style={groupStyle}>
           <span style={style}>{this.state.predictedBalanceDateString}</span>
-          <span style={formControl}>{this.state.currentBalance} - {this.state.expensesDue} = {this.state.predictedBalance}</span>
+          <span style={formControl}>{this.state.currentBalanceFormated} - {this.state.expensesDue} = {this.state.predictedBalance}</span>
         </div>
       </div>
     );
