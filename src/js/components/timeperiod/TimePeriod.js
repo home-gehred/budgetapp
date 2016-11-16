@@ -1,28 +1,23 @@
 import React from "react";
 import DateRangePicker from "react-daterange-picker"
-import moment from "moment"
-import momentRange from "moment-range"
+import { connect } from "react-redux";
 import "../../../../node_modules/react-daterange-picker/dist/css/react-calendar.css";
-import * as TimePeriodActions from "../../actions/TimePeriodActions"
+import { timePeriodChange } from "../../actions/TimePeriodActions";
 
+@connect((store) => {
+  return {
+    timeperiod: store.timeperiod
+  };
+})
 export default class TimePeriod extends React.Component {
   constructor() {
     super();
-    this.state = {value: moment.range([moment(), moment()])};
   }
 
   handleSelect(range) {
-    console.log(range);
-    console.log(range.start)
-    // range is a moment-range object
-    this.setState({
-      value: range,
-      startString: range.start.format("MMM Do YYYY"),
-      endString: range.end.format("MMM Do YYYY"),
-      fullRangeString: range.start.format("MMM Do YYYY") + " to " + range.end.format("MMM Do YYYY")
-    });
-    TimePeriodActions.createTimePeriod(range);
+    this.props.dispatch(timePeriodChange(range));
   }
+
   render() {
     return (
       <div>
@@ -31,10 +26,10 @@ export default class TimePeriod extends React.Component {
           numberOfCalendars={1}
           selectionType='range'
           onSelect={this.handleSelect.bind(this)}
-          value={this.state.value}
+          value={this.props.timeperiod.value}
         />
-      <div class="well well-sm">{this.state.fullRangeString}</div>
+        <div class="well well-sm">{this.props.timeperiod.fullRangeString}</div>
       </div>
      );
   }
-}
+};

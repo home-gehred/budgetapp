@@ -1,13 +1,20 @@
 import React from "react";
 import moment from "moment";
-import CurrentBalanceStore from "../../Stores/CurrentBalanceStore";
+/*import CurrentBalanceStore from "../../Stores/CurrentBalanceStore";*/
+import { connect } from "react-redux";
+import { currentBalanceChanging, currentBalanceChanged} from "../../actions/CurrentBalanceActions"
 import * as Accounting from "../../accounting.js";
 
-
+@connect((store) => {
+  return {
+    expenses: store.expenses,
+    currentBalance: store.currentBalance
+  };
+})
 export default class CurrentBalance extends React.Component {
   constructor() {
     super();
-    this.state = {
+/*    this.state = {
       currentBalance: Accounting.formatMoney(1500.32),
       currentBalanceFormated: Accounting.formatMoney(1500.32),
       currentBalanceDateString: moment().format("MMM Do YYYY"),
@@ -16,31 +23,34 @@ export default class CurrentBalance extends React.Component {
       predictedBalanceDateString: undefined
 
     }
+*/
   }
 
   componentWillMount() {
-    CurrentBalanceStore.on("expensesduechange", (range, amountDue) => {
+/*    CurrentBalanceStore.on("expensesduechange", (range, amountDue) => {
       this.setState({
         predictedBalanceDateString: range.end.format("MMM Do YYYY"),
         expensesDue: Accounting.formatMoney(amountDue),
         predictedBalance: Accounting.formatMoney((Accounting.unformat(this.state.currentBalance) - amountDue))
       });
-    });
+    });*/
   }
 
   changeCurrentBalance(e) {
-    var expensesDue = (this.state.expensesDue === undefined) ? 0 : Accounting.unformat(this.state.expensesDue);
+    this.props.dispatch(currentBalanceChanging(e.target.value));
+/*    var expensesDue = (this.state.expensesDue === undefined) ? 0 : Accounting.unformat(this.state.expensesDue);
     this.setState({
       currentBalance: e.target.value,
       currentBalanceFormated: Accounting.formatMoney(e.target.value),
       predictedBalance: Accounting.formatMoney((Accounting.unformat(e.target.value) - expensesDue))
-    });
+    });*/
   }
 
   formatCurrentBalance(e) {
-    this.setState({
+    this.props.dispatch(currentBalanceChanged(e.target.value));
+/*    this.setState({
       currentBalance: Accounting.formatMoney(e.target.value)
-    });
+    });*/
   }
 
   render() {
@@ -82,17 +92,21 @@ export default class CurrentBalance extends React.Component {
       "display": "table",
       "borderCollapse": "separate"
     };
+    var balance = this.props.currentBalance;
+    var expensesDue = this.props.expenses.expensesDue;
+    var expenseDueFormated = Accounting.formatMoney(expensesDue);
+    var totalDue = Accounting.formatMoney((Accounting.unformat(balance.currentBalanceFormated) - expensesDue));
     return (
       <div class="currentbalance-component">
         <h5>Current Balance</h5>
         <div class="input-group">
-          <span class="input-group-addon">{this.state.currentBalanceDateString}</span>
-          <input type="text" class="form-control" value={this.state.currentBalance} onChange={this.changeCurrentBalance.bind(this)} onBlur={this.formatCurrentBalance.bind(this)}/>
+          <span class="input-group-addon">{balance.currentBalanceDateString}</span>
+          <input type="text" class="form-control" value={balance.currentBalance} onChange={this.changeCurrentBalance.bind(this)} onBlur={this.formatCurrentBalance.bind(this)}/>
         </div>
         <h5>Predicted Balance</h5>
         <div style={groupStyle}>
-          <span style={style}>{this.state.predictedBalanceDateString}</span>
-          <span style={formControl}>{this.state.currentBalanceFormated} - {this.state.expensesDue} = {this.state.predictedBalance}</span>
+          <span style={style}>{balance.predictedBalanceDateString}</span>
+          <span style={formControl}>{balance.currentBalanceFormated} - {expenseDueFormated} = {totalDue}</span>
         </div>
       </div>
     );

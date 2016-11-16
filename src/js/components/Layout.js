@@ -1,6 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom"
-
+import ReactDOM from "react-dom";
 import Header from "./Header";
 import AppBody from "./AppBody";
 import Footer from "./Footer";

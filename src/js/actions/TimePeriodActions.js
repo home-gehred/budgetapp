@@ -1,8 +1,7 @@
-import dispatcher from "../dispatcher";
 
-export function createTimePeriod(range) {
-    dispatcher.dispatch({
-      type: "CREATE_TIMEPERIOD",
-      range
-    });
-}
+export function timePeriodChange(range) {
+  return {
+    type: "TIMEPERIOD_CHANGE",
+    payload: range
+  };
+};

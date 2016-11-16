@@ -34,7 +34,9 @@ app.get('/expenses', function (req, res) {
         duedate: "2016-11-28"
       }
   ];
-  res.send(expenses)
+  setTimeout(function () {
+    res.send(expenses);
+  }, 2000);
 })
 
 app.listen(3000, function () {
