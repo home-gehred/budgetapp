@@ -13,3 +13,10 @@ export function expensesDueChanged(amountDue) {
     payload: amountDue
   }
 }
+
+export function expenseSelectedForUpdate(expenseSelection) {
+  return {
+    type: "EXPENSE_SELECTED_FOR_UPDATE",
+    payload: expenseSelection
+  }
+}

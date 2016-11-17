@@ -48,6 +48,20 @@ export default function expenseReducer(state=initialState, actions) {
       };
     };
     break;
+    case "EXPENSE_SELECTED_FOR_UPDATE": {
+      var expenseId = actions.payload.expenseId;
+      var isSelected = actions.payload.isSelected;
+      var updatedExpenses = state.expenses.map((expense) => {
+        if (expense.id === expenseId) {
+          expense.isSelectedForUpdate = isSelected;
+        }
+        return expense;
+      });
+      return {...state,
+        expenses: updatedExpenses
+      };
+      break;
+    }
   }
   return state;
 };

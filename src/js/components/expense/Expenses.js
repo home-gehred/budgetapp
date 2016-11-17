@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import ReactSpinner from "react-spinjs";
 import { connect } from "react-redux";
 import ExpenseItem from "./ExpenseItem";
@@ -24,6 +25,13 @@ export default class Expenses extends React.Component {
     this.props.dispatch(fetchExpenses());
   }
 
+  handleUpdateExpenses(e) {
+    var toUpdate = this.props.expenses.expenses.filter((expense) => {
+      return (expense.isSelectedForUpdate === true)
+    });
+    console.log("Update Payload is ", toUpdate);
+  }
+
   render() {
     if (this.props.expenses.fetching) {
       return <ReactSpinner config={this.spinnerConfig}/>
@@ -32,9 +40,17 @@ export default class Expenses extends React.Component {
         const ExpenseComponent = this.props.expenses.expenses.map((expense) => {
           var parsedDate = moment(expense.duedate, "YYYY-MM-DD");
           var duedateformatted = parsedDate.format("MMM Do YYYY");
-          return <ExpenseItem key={expense.id} name={expense.name} amount={expense.amount} include={expense.include} duedate={duedateformatted}/>
+          return <ExpenseItem
+             key={expense.id}
+             name={expense.name}
+             expenseId={expense.id}
+             amount={expense.amount}
+             include={expense.include}
+             duedate={duedateformatted}
+             isSelectedForUpdate={expense.isSelectedForUpdate}/>
         });
-        return <div class="list-group">
+        return <div class="list-group checked-list-box">
+          <button type="button" class="btn btn-primary btn-sm" onClick={this.handleUpdateExpenses.bind(this)}>Update Due Date</button>
           {ExpenseComponent}
         </div>
       } else {
