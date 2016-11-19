@@ -64,6 +64,62 @@ export default function expenseReducer(state=initialState, actions) {
       };
       break;
     }
+    case "EXPENSE_SELECTED_FOR_EDIT": {
+      var expenseId = actions.payload.expenseId;
+      var updatedExpenses = state.expenses.map((expense) => {
+        if (expense.id === expenseId) {
+          if (expense.isEditMode === true) {
+            expense.isEditMode = false;
+          } else {
+            expense.isEditMode = true;
+          }
+        }
+        return expense;
+      });
+      return {...state,
+        expenses: updatedExpenses
+      };
+    }
+    case "EXPENSE_AMOUNT_CHANGE": {
+      var expenseId = actions.payload.expenseId;
+      var amount = actions.payload.amount;
+      var updatedExpenses = state.expenses.map((expense) => {
+        if (expense.id === expenseId) {
+            expense.amount =  amount;
+        }
+        return expense;
+      });
+      return {...state,
+        expenses: updatedExpenses
+      };
+    }
+    case "EXPENSE_SAVE_PENDING": {
+      return {...state,
+        saving: true,
+        saved: false
+      };
+    }
+    case "EXPENSE_SAVE_REJECTED": {
+      return {...state,
+        saving: false,
+        saved: false,
+        error: actions.payload
+      };
+    }
+    case "EXPENSE_SAVE_FULFILLED": {
+/*      var expenseId = actions.payload.expenseId;
+      var updatedExpenses = state.expenses.map((expense) => {
+        if (expense.id === expenseId) {
+            expense.isEditMode = false;
+        }
+        return expense;
+      });*/
+      return {...state,
+        expenses: actions.payload.data,
+        saving: false,
+        saved: true
+      };
+    }
     case "EXPENSE_UPDATE_DUEDATE_PENDING": {
       return {...state, fetching: true};
       break;

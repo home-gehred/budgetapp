@@ -22,6 +22,41 @@ app.get('/expenses', function (req, res) {
   });
 })
 
+app.post('/expenses/:expenseId', function (req, res) {
+  console.log("received:", req.body);
+  var routeExpenseId = parseInt(req.params.expenseId, 10);
+  console.log("route paarams", routeExpenseId);
+  fs.readFile(dataPath, "utf8", function(err,data) {
+    if (err) {
+      console.log("Error->", err);
+      res.status(500).send(err);
+    } else {
+      var expenseToUpdate = JSON.parse(data);
+      var didUpdateHappen = false;
+      _.forEach(expenseToUpdate.expenses, function(expense) {
+        if ((expense.id === req.body.expenseId) &&
+           (expense.id === routeExpenseId) ) {
+          //expense.duedate = req.body.dueDate;
+          expense.amount = req.body.amount;
+          didUpdateHappen = true;
+        }
+      });
+      if (didUpdateHappen) {
+        fs.writeFile(dataPath, JSON.stringify(expenseToUpdate, null, "  "), function(error) {
+          if (err) {
+            console.log("Error saving file ->", err);
+            res.status(500).send(err);
+          } else {
+            res.status(200).send(expenseToUpdate.expenses);
+          }
+        });
+      } else {
+        res.status(422).send(new Error("Malformed request"));
+      }
+    }
+  });
+})
+
 app.post('/expenses', function (req, res) {
     console.log("received:", req.body);
     fs.readFile(dataPath, "utf8", function(err,data) {

@@ -47,7 +47,8 @@ export default class Expenses extends React.Component {
              amount={expense.amount}
              include={expense.include}
              duedate={duedateformatted}
-             isSelectedForUpdate={expense.isSelectedForUpdate}/>
+             isSelectedForUpdate={expense.isSelectedForUpdate}
+             isEditMode={expense.isEditMode}/>
         });
         return <div class="list-group checked-list-box">
           <button type="button" class="btn btn-primary btn-sm" onClick={this.handleUpdateExpenses.bind(this)}>Update Due Date</button>
