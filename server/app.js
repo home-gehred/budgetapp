@@ -1,42 +1,59 @@
-var express = require('express')
-var app = express()
+var express = require('express');
+var bodyParser = require('body-parser');
+var app = express();
+var fs = require('fs');
+var path = require('path');
+var dataPath = path.join(__dirname, "data/bills/expenses.json");
+var _ = require('underscore');
+var moment = require('moment');
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 app.get('/expenses', function (req, res) {
-  var expenses = [
-      {
-        id: 1,
-        name: "Gas/Electric",
-        amount: 280.67,
-        duedate: "2016-11-22"
-      },
-      {
-        id: 2,
-        name: "Max Education",
-        amount: 240.00,
-        duedate: "2016-11-5"
-      },
-      {
-        id: 3,
-        name: "Holy Family Church",
-        amount: 65.00,
-        duedate: "2016-11-17"
-      },
-      {
-        id: 4,
-        name: "Charlotte Education",
-        amount: 240.00,
-        duedate: "2016-11-5"
-      },
-      {
-        id: 5,
-        name: "WaterBill",
-        amount: 275.23,
-        duedate: "2016-11-28"
+  fs.readFile(dataPath, "utf8", function(err,data) {
+    if (err) {
+      console.log("Error->", err);
+      res.status(500).send(err);
+    } else {
+      var data = JSON.parse(data);
+      res.status(200).send(data.expenses);
+    }
+  });
+})
+
+app.post('/expenses', function (req, res) {
+    console.log("received:", req.body);
+    fs.readFile(dataPath, "utf8", function(err,data) {
+      if (err) {
+        console.log("Error->", err);
+        res.status(500).send(err);
+      } else {
+        var data = JSON.parse(data);
+        var expensesToUpdate = req.body;
+        // basically need to find the same id's
+        // update the date then save the file.
+        _.forEach(data.expenses, function(expense) {
+          var updateExpense = _.find(expensesToUpdate, function(expenseToUpdate) {
+            return (expense.id === expenseToUpdate.id);
+          });
+          if (updateExpense !== undefined) {
+            var dueDate = moment(expense.duedate, "YYYY-MM-DD");
+            dueDate.add({months:1});
+            expense.duedate = dueDate.format("YYYY-MM-DD");
+          }
+        });
+        //console.log("After Filter ->", data);
+        fs.writeFile(dataPath, JSON.stringify(data, null, "  "), function(error) {
+          if (err) {
+            console.log("Error saving file ->", err);
+            res.status(500).send(err);
+          } else {
+            res.status(200).send(data.expenses);
+          }
+        });
       }
-  ];
-  setTimeout(function () {
-    res.send(expenses);
-  }, 2000);
+    });
 })
 
 app.listen(3000, function () {

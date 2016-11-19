@@ -4,7 +4,7 @@ import ReactSpinner from "react-spinjs";
 import { connect } from "react-redux";
 import ExpenseItem from "./ExpenseItem";
 import moment from "moment";
-import { fetchExpenses } from "../../actions/ExpenseActions";
+import { fetchExpenses, expenseUpdateDueDate } from "../../actions/ExpenseActions";
 
 @connect((store) => {
   return {
@@ -29,7 +29,7 @@ export default class Expenses extends React.Component {
     var toUpdate = this.props.expenses.expenses.filter((expense) => {
       return (expense.isSelectedForUpdate === true)
     });
-    console.log("Update Payload is ", toUpdate);
+    this.props.dispatch(expenseUpdateDueDate(toUpdate));
   }
 
   render() {

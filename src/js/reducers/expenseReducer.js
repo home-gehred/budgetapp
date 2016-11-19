@@ -12,7 +12,9 @@ export default function expenseReducer(state=initialState, actions) {
   switch (actions.type)
   {
     case "EXPENSES_PENDING": {
-      return {...state, fetching: true};
+      return {...state,
+        fetching: true,
+        fetched: false};
       break;
     }
     case "EXPENSES_FULFILLED": {
@@ -62,6 +64,25 @@ export default function expenseReducer(state=initialState, actions) {
       };
       break;
     }
+    case "EXPENSE_UPDATE_DUEDATE_PENDING": {
+      return {...state, fetching: true};
+      break;
+    }
+    case "EXPENSE_UPDATE_DUEDATE_REJECTED": {
+      return {...state,
+              fetching: false,
+              fetched: false,
+              error: actions.payload };
+      break;
+    }
+    case "EXPENSE_UPDATE_DUEDATE_FULFILLED": {
+      return {...state,
+              fetching: false,
+              fetched: true,
+              expenses: actions.payload.data };
+      break;
+    }
+
   }
   return state;
 };

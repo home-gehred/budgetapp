@@ -20,3 +20,10 @@ export function expenseSelectedForUpdate(expenseSelection) {
     payload: expenseSelection
   }
 }
+
+export function expenseUpdateDueDate(expenseDueDateUpdate) {
+  return {
+    type: "EXPENSE_UPDATE_DUEDATE",
+    payload: axios.post("http://localhost:3000/expenses", expenseDueDateUpdate)
+  }
+}
