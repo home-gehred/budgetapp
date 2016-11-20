@@ -36,8 +36,8 @@ app.post('/expenses/:expenseId', function (req, res) {
       _.forEach(expenseToUpdate.expenses, function(expense) {
         if ((expense.id === req.body.expenseId) &&
            (expense.id === routeExpenseId) ) {
-          //expense.duedate = req.body.dueDate;
           expense.amount = req.body.amount;
+          expense.duedate = req.body.dueDate;
           didUpdateHappen = true;
         }
       });

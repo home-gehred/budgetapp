@@ -4,10 +4,12 @@ import ReactSpinner from "react-spinjs";
 import { connect } from "react-redux";
 import ExpenseItem from "./ExpenseItem";
 import moment from "moment";
+import momentRange from "moment-range"
 import { fetchExpenses, expenseUpdateDueDate } from "../../actions/ExpenseActions";
 
 @connect((store) => {
   return {
+    timePeriod: store.timeperiod,
     expenses: store.expenses
   };
 })
@@ -21,6 +23,7 @@ export default class Expenses extends React.Component {
       color: '#0349ba'
     };
   }
+
   componentWillMount() {
     this.props.dispatch(fetchExpenses());
   }
@@ -39,16 +42,23 @@ export default class Expenses extends React.Component {
       if (this.props.expenses.fetched) {
         const ExpenseComponent = this.props.expenses.expenses.map((expense) => {
           var parsedDate = moment(expense.duedate, "YYYY-MM-DD");
-          var duedateformatted = parsedDate.format("MMM Do YYYY");
+          var dueDateformatted = parsedDate.format("MMM Do YYYY");
+          var dueDateUnformatted = (expense.dueDateUnformatted === undefined) ? expense.duedate: expense.dueDateUnformatted;
+          var expenseInclude = false;
+          if (this.props.timePeriod !== undefined) {
+            expenseInclude = (this.props.timePeriod.value !== undefined) ? this.props.timePeriod.value.contains(parsedDate) : expense.include;
+          }
           return <ExpenseItem
              key={expense.id}
              name={expense.name}
              expenseId={expense.id}
              amount={expense.amount}
-             include={expense.include}
-             duedate={duedateformatted}
+             include={expenseInclude}
+             duedate={dueDateformatted}
+             dueDateUnformatted={dueDateUnformatted}
              isSelectedForUpdate={expense.isSelectedForUpdate}
-             isEditMode={expense.isEditMode}/>
+             isEditMode={expense.isEditMode}
+             userInputErrorMessage={expense.userInputErrorMessage}/>
         });
         return <div class="list-group checked-list-box">
           <button type="button" class="btn btn-primary btn-sm" onClick={this.handleUpdateExpenses.bind(this)}>Update Due Date</button>

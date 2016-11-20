@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import momentRange from "moment-range"
 /*import CurrentBalanceStore from "../../Stores/CurrentBalanceStore";*/
 import { connect } from "react-redux";
 import { currentBalanceChanging, currentBalanceChanged} from "../../actions/CurrentBalanceActions"
@@ -8,49 +9,24 @@ import * as Accounting from "../../accounting.js";
 @connect((store) => {
   return {
     expenses: store.expenses,
-    currentBalance: store.currentBalance
+    currentBalance: store.currentBalance,
+    timePeriod: store.timeperiod
   };
 })
 export default class CurrentBalance extends React.Component {
   constructor() {
     super();
-/*    this.state = {
-      currentBalance: Accounting.formatMoney(1500.32),
-      currentBalanceFormated: Accounting.formatMoney(1500.32),
-      currentBalanceDateString: moment().format("MMM Do YYYY"),
-      expensesDue: Accounting.formatMoney(0.00),
-      predictedBalance: Accounting.formatMoney(1500.32),
-      predictedBalanceDateString: undefined
-
-    }
-*/
   }
 
   componentWillMount() {
-/*    CurrentBalanceStore.on("expensesduechange", (range, amountDue) => {
-      this.setState({
-        predictedBalanceDateString: range.end.format("MMM Do YYYY"),
-        expensesDue: Accounting.formatMoney(amountDue),
-        predictedBalance: Accounting.formatMoney((Accounting.unformat(this.state.currentBalance) - amountDue))
-      });
-    });*/
   }
 
   changeCurrentBalance(e) {
     this.props.dispatch(currentBalanceChanging(e.target.value));
-/*    var expensesDue = (this.state.expensesDue === undefined) ? 0 : Accounting.unformat(this.state.expensesDue);
-    this.setState({
-      currentBalance: e.target.value,
-      currentBalanceFormated: Accounting.formatMoney(e.target.value),
-      predictedBalance: Accounting.formatMoney((Accounting.unformat(e.target.value) - expensesDue))
-    });*/
   }
 
   formatCurrentBalance(e) {
     this.props.dispatch(currentBalanceChanged(e.target.value));
-/*    this.setState({
-      currentBalance: Accounting.formatMoney(e.target.value)
-    });*/
   }
 
   render() {
@@ -93,7 +69,19 @@ export default class CurrentBalance extends React.Component {
       "borderCollapse": "separate"
     };
     var balance = this.props.currentBalance;
-    var expensesDue = this.props.expenses.expensesDue;
+    
+    // TODO: Gehred thinks this is way to much business logic in render code.
+    var expensesDue = 0;
+    if (this.props.timePeriod !== undefined) {
+      this.props.expenses.expenses.forEach((expense) => {
+        var dueDate = moment(expense.duedate, "YYYY-MM-DD", true);
+        if (this.props.timePeriod.value.contains(dueDate)) {
+          expensesDue += expense.amount;
+        }
+      });
+    }
+    // End rant
+
     var expenseDueFormated = Accounting.formatMoney(expensesDue);
     var totalDue = Accounting.formatMoney((Accounting.unformat(balance.currentBalanceFormated) - expensesDue));
     return (

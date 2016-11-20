@@ -48,8 +48,8 @@ export default function expenseReducer(state=initialState, actions) {
         expenses: updatedExpenses,
         expensesDue: totalDue
       };
-    };
-    break;
+      break;
+    }
     case "EXPENSE_SELECTED_FOR_UPDATE": {
       var expenseId = actions.payload.expenseId;
       var isSelected = actions.payload.isSelected;
@@ -73,6 +73,31 @@ export default function expenseReducer(state=initialState, actions) {
           } else {
             expense.isEditMode = true;
           }
+        }
+        return expense;
+      });
+      return {...state,
+        expenses: updatedExpenses
+      };
+    }
+    case "EXPENSE_USER_INPUT_ERROR": {
+      var expenseId = actions.payload.expenseId;
+      var updatedExpenses = state.expenses.map((expense) => {
+        if (expense.id === expenseId) {
+          expense.userInputErrorMessage = actions.payload.userInputErrorMessage;
+        }
+        return expense;
+      });
+      return {...state,
+        expenses: updatedExpenses
+      };
+    }
+    case "EXPENSE_DUEDATE_CHANGE": {
+      var expenseId = actions.payload.expenseId;
+      var dueDateUnformatted = actions.payload.dueDateUnformatted;
+      var updatedExpenses = state.expenses.map((expense) => {
+        if (expense.id === expenseId) {
+            expense.dueDateUnformatted = dueDateUnformatted;
         }
         return expense;
       });
@@ -107,15 +132,11 @@ export default function expenseReducer(state=initialState, actions) {
       };
     }
     case "EXPENSE_SAVE_FULFILLED": {
-/*      var expenseId = actions.payload.expenseId;
-      var updatedExpenses = state.expenses.map((expense) => {
-        if (expense.id === expenseId) {
-            expense.isEditMode = false;
-        }
+      var updatedExpenses = actions.payload.data.map((expense) => {
         return expense;
-      });*/
+      });
       return {...state,
-        expenses: actions.payload.data,
+        expenses: updatedExpenses,
         saving: false,
         saved: true
       };
@@ -138,7 +159,6 @@ export default function expenseReducer(state=initialState, actions) {
               expenses: actions.payload.data };
       break;
     }
-
   }
   return state;
 };

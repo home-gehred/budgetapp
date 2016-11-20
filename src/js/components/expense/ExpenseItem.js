@@ -5,36 +5,41 @@ import {
   expenseSelectedForUpdate,
   expenseSelectedForEdit,
   expenseSelectedForSave,
+  expenseDueDateChange,
   expenseAmountChange } from "../../actions/ExpenseActions"
 import { connect } from "react-redux";
 
 @connect((store) => {
   return {
-    expenses: store.expenses,
+    expenses: store.expenses
   };
 })
 export default class ExpenseItem extends React.Component {
   constructor() {
     super();
   }
+
   selectedForUpdate(e) {
     this.props.dispatch(expenseSelectedForUpdate({
       expenseId: this.props.expenseId,
       isSelected: e.target.checked
     }));
   }
+
   selectedForEdit(e) {
     this.props.dispatch(expenseSelectedForEdit({
       expenseId: this.props.expenseId
     }));
   }
+
   selectedForSave(e) {
     this.props.dispatch(expenseSelectedForSave({
       expenseId: this.props.expenseId,
       amount: this.props.amount,
-      dueDate: this.props.duedate
+      dueDate: this.props.dueDateUnformatted
     }));
   }
+
   changeExpenseAmount(e) {
     this.props.dispatch(expenseAmountChange({
       expenseId: this.props.expenseId,
@@ -42,16 +47,38 @@ export default class ExpenseItem extends React.Component {
     }));
   }
 
+  changeExpenseDueDateChange(e) {
+    this.props.dispatch(expenseDueDateChange({
+      expenseId: this.props.expenseId,
+      dueDateUnformatted: e.target.value
+    }));
+  }
+
   render() {
+    var errorMessageStyle = {color: "#a94442"};
     var formatedAmount = Accounting.formatMoney(this.props.amount);
     var classForItem = (this.props.include) ? "list-group-item list-group-item-success" : "list-group-item";
+    var errorInfo = (this.props.userInputErrorMessage === undefined) ? {
+        amount: {hasError:false},
+        dueDate: {hasError:false}
+      } : JSON.parse(this.props.userInputErrorMessage);
+    var classForAmountFormGroup = (errorInfo.amount.hasError) ? "form-group has-error": "form-group";
+    var classForDueDateFormGroup = (errorInfo.dueDate.hasError) ? "form-group has-error": "form-group";
+    var classForAmountInput = (errorInfo.amount.hasError) ? "form-control has-error": "form-control";
+    var classForDueDateInput = (errorInfo.dueDate.hasError) ? "form-control has-error": "form-control";
     if (this.props.isEditMode) {
       return (
         <div ref="editExpense">
           <a href='#' class={classForItem}>
             <h4 class="list-group-item-heading">{this.props.name}</h4>
-            <input type="text" value={this.props.amount} onChange={this.changeExpenseAmount.bind(this)}></input>
-            <p class="list-group-item-text"><b>Due Date:</b> <i>{this.props.duedate}</i></p>
+            <div class={classForAmountFormGroup}>
+              <input type="text" class={classForAmountInput} value={this.props.amount} onChange={this.changeExpenseAmount.bind(this)}></input>
+                <span id="dueDateErrorMsg" style={errorMessageStyle}>{errorInfo.amount.message}</span>
+            </div>
+            <div class={classForDueDateFormGroup}>
+              <input type="text" class={classForDueDateInput} value={this.props.dueDateUnformatted} onChange={this.changeExpenseDueDateChange.bind(this)} aria-describedby="dueDateErrorMsg"/>
+              <span id="dueDateErrorMsg" style={errorMessageStyle}>{errorInfo.dueDate.message}</span>
+            </div>
             <button type="button" class="btn btn-primary btn-sm" onClick={this.selectedForSave.bind(this)}>Save</button>
           </a>
         </div>
