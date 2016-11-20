@@ -31,55 +31,55 @@
       "duedate": "2016-11-28"
     },
     {
-      "id":6,
+      "id": 6,
       "name": "Grocery Bill",
-      "amount": 1000.00,
+      "amount": 1000,
       "duedate": "2016-11-25"
     },
     {
-      "id":7,
-      "name":"Car Savings",
-      "amount": 200.00,
+      "id": 7,
+      "name": "Car Savings",
+      "amount": 200,
       "duedate": "2016-11-18"
     },
     {
-      "id":8,
+      "id": 8,
       "name": "Verizon Wireless",
       "amount": 259.81,
       "duedate": "2016-11-17"
     },
     {
-      "id":9,
+      "id": 9,
       "name": "Mortgage Payment",
-      "amount": 2000.00,
+      "amount": 2000,
       "duedate": "2016-11-07"
     },
     {
-      "id":10,
+      "id": 10,
       "name": "Vacation Savings",
-      "amount": 150.00,
+      "amount": 150,
       "duedate": "2016-11-18"
     },
     {
-      "id":11,
+      "id": 11,
       "name": "CITI Card Payment",
-      "amount": 1000.00,
+      "amount": 1000,
       "duedate": "2016-11-26"
     },
     {
-      "id":12,
+      "id": 12,
       "name": "ATT Payment",
       "amount": 117.12,
       "duedate": "2016-11-26"
     },
     {
-      "id":13,
+      "id": 13,
       "name": "BMO Harris Credit Card",
       "amount": 48.66,
       "duedate": "2016-11-26"
     },
     {
-      "id":14,
+      "id": 14,
       "name": "NML Life Insurance",
       "amount": 285.73,
       "duedate": "2016-11-25"

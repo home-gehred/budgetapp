@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import ExpenseItem from "./ExpenseItem";
 import moment from "moment";
 import momentRange from "moment-range"
-import { fetchExpenses, expenseUpdateDueDate } from "../../actions/ExpenseActions";
+import { fetchExpenses } from "../../actions/ExpenseActions";
 
 @connect((store) => {
   return {
@@ -26,13 +26,6 @@ export default class Expenses extends React.Component {
 
   componentWillMount() {
     this.props.dispatch(fetchExpenses());
-  }
-
-  handleUpdateExpenses(e) {
-    var toUpdate = this.props.expenses.expenses.filter((expense) => {
-      return (expense.isSelectedForUpdate === true)
-    });
-    this.props.dispatch(expenseUpdateDueDate(toUpdate));
   }
 
   render() {
@@ -61,7 +54,6 @@ export default class Expenses extends React.Component {
              userInputErrorMessage={expense.userInputErrorMessage}/>
         });
         return <div class="list-group checked-list-box">
-          <button type="button" class="btn btn-primary btn-sm" onClick={this.handleUpdateExpenses.bind(this)}>Update Due Date</button>
           {ExpenseComponent}
         </div>
       } else {

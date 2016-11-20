@@ -1,7 +1,6 @@
 import axios from "axios";
 import moment from "moment";
 
-
 export function fetchExpenses() {
   return {
     type: "EXPENSES",
@@ -13,20 +12,6 @@ export function expensesDueChanged(amountDue) {
   return {
     type: "EXPENSES_CHANGED",
     payload: amountDue
-  }
-}
-
-export function expenseSelectedForUpdate(expenseSelection) {
-  return {
-    type: "EXPENSE_SELECTED_FOR_UPDATE",
-    payload: expenseSelection
-  }
-}
-
-export function expenseUpdateDueDate(expenseDueDateUpdate) {
-  return {
-    type: "EXPENSE_UPDATE_DUEDATE",
-    payload: axios.post("http://localhost:3000/expenses", expenseDueDateUpdate)
   }
 }
 

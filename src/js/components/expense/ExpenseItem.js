@@ -2,7 +2,6 @@ import React from "react";
 import { ListGroupItem } from 'react-bootstrap';
 import * as Accounting from "../../accounting.js";
 import {
-  expenseSelectedForUpdate,
   expenseSelectedForEdit,
   expenseSelectedForSave,
   expenseDueDateChange,
@@ -17,13 +16,6 @@ import { connect } from "react-redux";
 export default class ExpenseItem extends React.Component {
   constructor() {
     super();
-  }
-
-  selectedForUpdate(e) {
-    this.props.dispatch(expenseSelectedForUpdate({
-      expenseId: this.props.expenseId,
-      isSelected: e.target.checked
-    }));
   }
 
   selectedForEdit(e) {
@@ -87,7 +79,7 @@ export default class ExpenseItem extends React.Component {
       return (
         <div ref="expenses">
           <a href="#" class={classForItem} onClick={this.selectedForEdit.bind(this)}>
-            <input type="checkbox" onClick={this.selectedForUpdate.bind(this)}></input><h4 class="list-group-item-heading">{this.props.name}</h4>
+            <h4 class="list-group-item-heading">{this.props.name}</h4>
             <p class="list-group-item-text">{formatedAmount}</p>
             <p class="list-group-item-text"><b>Due Date:</b> <i>{this.props.duedate}</i></p>
           </a>
