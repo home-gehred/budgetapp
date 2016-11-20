@@ -36,9 +36,14 @@ app.post('/expenses/:expenseId', function (req, res) {
       _.forEach(expenseToUpdate.expenses, function(expense) {
         if ((expense.id === req.body.expenseId) &&
            (expense.id === routeExpenseId) ) {
-          expense.amount = req.body.amount;
-          expense.duedate = req.body.dueDate;
-          didUpdateHappen = true;
+          if (_.isNumber(req.body.amount)) {
+            expense.amount = req.body.amount;
+            expense.duedate = req.body.dueDate;
+            didUpdateHappen = true;
+          } else {
+              res.status(422).send(new Error("Expecting a number but received: ", req.body.amount));
+              return;
+          }
         }
       });
       if (didUpdateHappen) {

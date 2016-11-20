@@ -3,32 +3,32 @@
     {
       "id": 1,
       "name": "WE Energies",
-      "amount": 280.67,
+      "amount": 136.09,
       "duedate": "2016-11-22"
     },
     {
       "id": 2,
       "name": "Max Education",
       "amount": 240,
-      "duedate": "2016-11-05"
+      "duedate": "2016-11-30"
     },
     {
       "id": 3,
       "name": "Holy Family Church",
       "amount": 65,
-      "duedate": "2016-11-17"
+      "duedate": "2016-12-15"
     },
     {
       "id": 4,
       "name": "Charlotte Education",
       "amount": 240,
-      "duedate": "2016-11-05"
+      "duedate": "2016-11-30"
     },
     {
       "id": 5,
       "name": "WaterBill",
       "amount": 275.23,
-      "duedate": "2016-11-28"
+      "duedate": "2016-12-28"
     },
     {
       "id": 6,
@@ -40,31 +40,31 @@
       "id": 7,
       "name": "Car Savings",
       "amount": 200,
-      "duedate": "2016-11-18"
+      "duedate": "2016-11-30"
     },
     {
       "id": 8,
       "name": "Verizon Wireless",
       "amount": 259.81,
-      "duedate": "2016-11-17"
+      "duedate": "2016-12-15"
     },
     {
       "id": 9,
       "name": "Mortgage Payment",
       "amount": 2000,
-      "duedate": "2016-11-07"
+      "duedate": "2016-12-06"
     },
     {
       "id": 10,
       "name": "Vacation Savings",
       "amount": 150,
-      "duedate": "2016-11-18"
+      "duedate": "2016-11-30"
     },
     {
       "id": 11,
       "name": "CITI Card Payment",
-      "amount": 1000,
-      "duedate": "2016-11-26"
+      "amount": 1308.37,
+      "duedate": "2016-11-25"
     },
     {
       "id": 12,
@@ -75,8 +75,8 @@
     {
       "id": 13,
       "name": "BMO Harris Credit Card",
-      "amount": 48.66,
-      "duedate": "2016-11-26"
+      "amount": 9.49,
+      "duedate": "2016-11-22"
     },
     {
       "id": 14,

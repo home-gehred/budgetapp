@@ -27,7 +27,7 @@ export default class ExpenseItem extends React.Component {
   selectedForSave(e) {
     this.props.dispatch(expenseSelectedForSave({
       expenseId: this.props.expenseId,
-      amount: this.props.amount,
+      amount: parseFloat(this.props.amount, 10),
       dueDate: this.props.dueDateUnformatted
     }));
   }
