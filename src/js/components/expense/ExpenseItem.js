@@ -61,7 +61,7 @@ export default class ExpenseItem extends React.Component {
     if (this.props.isEditMode) {
       return (
         <div ref="editExpense">
-          <a href='#' class={classForItem}>
+          <a class={classForItem}>
             <h4 class="list-group-item-heading">{this.props.name}</h4>
             <div class={classForAmountFormGroup}>
               <input type="text" class={classForAmountInput} value={this.props.amount} onChange={this.changeExpenseAmount.bind(this)}></input>
@@ -78,7 +78,7 @@ export default class ExpenseItem extends React.Component {
     } else {
       return (
         <div ref="expenses">
-          <a href="#" class={classForItem} onClick={this.selectedForEdit.bind(this)}>
+          <a class={classForItem} onClick={this.selectedForEdit.bind(this)}>
             <h4 class="list-group-item-heading">{this.props.name}</h4>
             <p class="list-group-item-text">{formatedAmount}</p>
             <p class="list-group-item-text"><b>Due Date:</b> <i>{this.props.duedate}</i></p>
