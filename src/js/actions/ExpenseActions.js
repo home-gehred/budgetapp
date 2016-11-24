@@ -25,7 +25,7 @@ export function expenseSelectedForEdit(expenseSelection) {
 function ValidateAmount(userInput) {
   var hasError = false;
   var message = "";
-  if (isNaN(Number.parseInt(userInput))) {
+  if (isNaN(Number.parseFloat(userInput))) {
     hasError = true,
     message = "Amount has to be a valid number."
   }

@@ -3,7 +3,7 @@ import moment from "moment";
 import momentRange from "moment-range"
 /*import CurrentBalanceStore from "../../Stores/CurrentBalanceStore";*/
 import { connect } from "react-redux";
-import { currentBalanceChanging, currentBalanceChanged} from "../../actions/CurrentBalanceActions"
+import { currentBalanceChanging, currentBalanceChanged, fetchBalance} from "../../actions/CurrentBalanceActions"
 import * as Accounting from "../../accounting.js";
 
 @connect((store) => {
@@ -19,6 +19,7 @@ export default class CurrentBalance extends React.Component {
   }
 
   componentWillMount() {
+    this.props.dispatch(fetchBalance());
   }
 
   changeCurrentBalance(e) {
@@ -26,7 +27,8 @@ export default class CurrentBalance extends React.Component {
   }
 
   formatCurrentBalance(e) {
-    this.props.dispatch(currentBalanceChanged(e.target.value));
+    var balance = Accounting.unformat(e.target.value);
+    this.props.dispatch(currentBalanceChanged(this.props.timePeriod.value, balance));
   }
 
   render() {
@@ -69,7 +71,7 @@ export default class CurrentBalance extends React.Component {
       "borderCollapse": "separate"
     };
     var balance = this.props.currentBalance;
-    
+
     // TODO: Gehred thinks this is way to much business logic in render code.
     var expensesDue = 0;
     if (this.props.timePeriod !== undefined) {

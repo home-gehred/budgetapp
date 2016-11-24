@@ -1,4 +1,8 @@
 {
+  "balance": {
+    "date": "2016-11-27",
+    "currentBalance": 2450.55
+  },
   "expenses": [
     {
       "id": 1,

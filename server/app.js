@@ -62,6 +62,42 @@ app.post('/expenses/:expenseId', function (req, res) {
   });
 })
 
+app.get('/balance', function (req, res) {
+  fs.readFile(dataPath, "utf8", function(err,data) {
+    if (err) {
+      console.log("Error->", err);
+      res.status(500).send(err);
+    } else {
+      var data = JSON.parse(data);
+      console.log("Balance ", data.balance);
+      res.status(200).send(data.balance);
+    }
+  });
+})
+
+app.post("/balance", function (req, res) {
+  console.log("Save Balance Received:", req.body);
+  fs.readFile(dataPath, "utf8", function(err,data) {
+    if (err) {
+      console.log("Error->", err);
+      res.status(500).send(err);
+    } else {
+      var persistObject = JSON.parse(data);
+      persistObject.balance.currentBalance = (req.body.balance === undefined) ? persistObject.balance.currentBalance : req.body.balance;
+      persistObject.balance.date = (req.body.date === undefined) ? persistObject.balance.date : req.body.date;
+
+      fs.writeFile(dataPath, JSON.stringify(persistObject, null, "  "), function(error) {
+        if (err) {
+          console.log("Error saving file ->", err);
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(persistObject.balance);
+        }
+      });
+    }
+  });
+})
+
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 })
