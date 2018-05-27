@@ -34,8 +34,18 @@ export default function expenseReducer(state=initialState, actions) {
       var timePeriod = actions.payload;
       var totalDue = 0;
       var updatedExpenses = state.expenses.map((expense) => {
-        var dueDate = moment(expense.duedate, "YYYY-MM-DD");
-        expense.include = (timePeriod === undefined) ? false: timePeriod.contains(dueDate);
+        var dueDate = undefined;
+        var isBuffer = (expense.isbuffer === undefined) ? false : expense.isbuffer;
+        if (isBuffer) {
+          if (timePeriod !== undefined) {
+            dueDate = timePeriod.end;
+            expense.duedate = timePeriod.end.format("YYYY-MM-DD");
+          }
+        } else {
+          dueDate = moment(expense.duedate, "YYYY-MM-DD");
+        }
+
+        expense.include = (timePeriod === undefined) ? false : timePeriod.contains(dueDate);
         if (expense.include) {
           totalDue += expense.amount;
         }
