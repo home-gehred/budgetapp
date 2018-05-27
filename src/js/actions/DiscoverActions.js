@@ -1,3 +1,4 @@
+import axios from "axios";
 import moment from "moment";
 
 function ValidateDate(userInput) {
@@ -13,24 +14,28 @@ export function institutionClientDueDateChange(dueDateChange) {
   return {
     type: "INSTITUTION_DUEDATE_CHANGING",
     payload: dueDateChange
-  }
+  };
 }
 
 export function institutionDueDateChange(institutionDueDateUpdate) {
+  var institutionSaveEndpoint = "http://localhost:3000/institution/" + institutionDueDateUpdate.institution;
   var errorInfo = {
     dueDate: ValidateDate(institutionDueDateUpdate.dueDate)
   }
   if (errorInfo.dueDate.hasError === false) {
     return {
-      type: "INSTITUTION_UPDATE",
-      payload: {...institutionDueDateUpdate}
-    }
+      type: "INSTITUTION_SAVE", /*INSTITUTION_UPDATE*/
+      payload: axios.post(institutionSaveEndpoint, institutionDueDateUpdate)
+                .catch(function (error) {
+                  return error;
+                })
+    };
   } else {
     return {
       type: "INSTITUTION_UPDATE_ERROR",
       payload: {...institutionDueDateUpdate,
         userInputErrorMessage: JSON.stringify(errorInfo, null, null)
       }
-    }
+    };
   }
 }

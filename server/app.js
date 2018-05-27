@@ -98,6 +98,13 @@ app.post("/balance", function (req, res) {
   });
 })
 
+app.post("/institution/:institutionId", function (req, res) {
+  console.log("Post institution received:", req.body);
+  var routeInstitutionId = req.params.institutionId;
+  console.log("route params", routeInstitutionId);
+  res.status(500).send("blah");
+});
+
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 })

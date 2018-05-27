@@ -30,10 +30,18 @@ export default class Discover extends React.Component {
 
   render() {
     var errorMessageStyle = {color: "#a94442"};
-    var errorInfo = (this.props.userInputErrorMessage === undefined) ? {
+    var userErrorInfo = (this.props.userInputErrorMessage === undefined) ? {
         dueDate: {hasError:false}
       } : JSON.parse(this.props.userInputErrorMessage);
-    var classForDueDateInput = (errorInfo.dueDate.hasError) ? "input-group has-error": "input-group";
+    var serverErrorInfo = (this.props.error === undefined) ? { serverError: {hasError: false}} : this.props.error;
+    var classForDueDateInput = (userErrorInfo.dueDate.hasError) || (serverErrorInfo.serverError.hasError) ? "input-group has-error": "input-group";
+    var errorMessage = "";
+    if (userErrorInfo.dueDate.hasError) {
+      errorMessage = userErrorInfo.dueDate.message;
+    }
+    if (serverErrorInfo.serverError.hasError) {
+      errorMessage = "You got a problem mon";
+    }
     return (
       <div class="discover-component">
         <b>Update Discover account due date</b>
@@ -43,7 +51,7 @@ export default class Discover extends React.Component {
           </span>
           <input type="text" class="form-control" placeholder="YYYY-MM-DD" value={this.props.dueDateUnformatted} onChange={this.dueDateChange.bind(this)}/>
         </div>
-        <span id="dueDateErrorMsg" style={errorMessageStyle}>{errorInfo.dueDate.message}</span>
+        <span id="dueDateErrorMsg" style={errorMessageStyle}>{errorMessage}</span>
       </div>
     );
   }

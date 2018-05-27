@@ -133,6 +133,20 @@ export default function expenseReducer(state=initialState, actions) {
         saved: true
       };
     }
+    case "INSTITUTION_UPDATE": {
+      var updatedExpenses = state.expenses.map((expense) => {
+        if (expense.institution !== undefined) {
+          if (expense.institution === actions.payload.institution)
+          {
+            expense.duedate = moment(actions.payload.dueDate, "YYYY-MM-DD");
+          }
+        }
+        return expense;
+      });
+      return {...state,
+        expenses: updatedExpenses,
+      };
+    }
   }
   return state;
 };

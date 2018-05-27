@@ -14,12 +14,29 @@ export default function discoverReducer(state=initialState, actions) {
         userInputErrorMessage: undefined
       };
     }
-    case "INSTITUTION_UPDATE": {
+    case "INSTITUTION_SAVE_PENDING": {
+      return {...state,
+        saving: true,
+        saved: false,
+        error: undefined
+      };
+    }
+    case "INSTITUTION_SAVE_REJECTED": {
+      return {...state,
+        saving: false,
+        saved: false,
+        error: actions.payload
+      };
+    }
+    case "INSTITUTION_SAVE": {
       return {...state,
         institution: actions.payload.institution,
         dueDate: actions.payload.dueDate,
         dueDateUnformatted: actions.payload.dueDate,
-        userInputErrorMessage: undefined
+        userInputErrorMessage: undefined,
+        saving: false,
+        saved: true,
+        error: undefined
       };
     }
     case "INSTITUTION_UPDATE_ERROR": {
@@ -27,7 +44,7 @@ export default function discoverReducer(state=initialState, actions) {
         institution: actions.payload.institution,
         dueDate: undefined,
         userInputErrorMessage: actions.payload.userInputErrorMessage
-      }
+      };
     }
   }
   return state;
