@@ -98,7 +98,9 @@ export default class CurrentBalance extends React.Component {
           <span style={style}>{balance.predictedBalanceDateString}</span>
           <span style={formControl}>{balance.currentBalanceFormated} - {expenseDueFormated} = {totalDue}</span>
         </div>
+        <div class="well well-sm"></div>
       </div>
+
     );
   }
 }
