@@ -7,7 +7,8 @@ import { institutionDueDateChange, institutionClientDueDateChange } from "../../
     institution: "discover",
     dueDate: store.discoverReducer.dueDate,
     dueDateUnformatted: store.discoverReducer.dueDateUnformatted,
-    userInputErrorMessage: store.discoverReducer.userInputErrorMessage
+    userInputErrorMessage: store.discoverReducer.userInputErrorMessage,
+    error: store.discoverReducer.error
   };
 })
 
@@ -33,14 +34,14 @@ export default class Discover extends React.Component {
     var userErrorInfo = (this.props.userInputErrorMessage === undefined) ? {
         dueDate: {hasError:false}
       } : JSON.parse(this.props.userInputErrorMessage);
-    var serverErrorInfo = (this.props.error === undefined) ? { serverError: {hasError: false}} : this.props.error;
+    var serverErrorInfo = (this.props.error === undefined) ? { serverError: {hasError: false}} : { serverError: {hasError: true, error: this.props.error}};
     var classForDueDateInput = (userErrorInfo.dueDate.hasError) || (serverErrorInfo.serverError.hasError) ? "input-group has-error": "input-group";
     var errorMessage = "";
     if (userErrorInfo.dueDate.hasError) {
       errorMessage = userErrorInfo.dueDate.message;
     }
     if (serverErrorInfo.serverError.hasError) {
-      errorMessage = "You got a problem mon";
+      errorMessage = serverErrorInfo.serverError.error.message;
     }
     return (
       <div class="discover-component">

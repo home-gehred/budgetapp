@@ -26,9 +26,6 @@ export function institutionDueDateChange(institutionDueDateUpdate) {
     return {
       type: "INSTITUTION_SAVE", /*INSTITUTION_UPDATE*/
       payload: axios.post(institutionSaveEndpoint, institutionDueDateUpdate)
-                .catch(function (error) {
-                  return error;
-                })
     };
   } else {
     return {
