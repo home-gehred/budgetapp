@@ -98,11 +98,46 @@ app.post("/balance", function (req, res) {
   });
 })
 
+// TODO: request body should include institution id.
+// TODO: route should be changed to /updateduedate
+// TODO: should validate date is ####-##-## where -##- is valid only if it is 1-12 and -##
+//       is valid only when 1-31. Otherwise return bad request with good msg.
+// TODO: expense.institution should be renamed to expense.groupid
 app.post("/institution/:institutionId", function (req, res) {
   console.log("Post institution received:", req.body);
   var routeInstitutionId = req.params.institutionId;
   console.log("route params", routeInstitutionId);
-  res.status(500).send("blah");
+  var validDueDate = req.body.dueDate;
+  var validInstitution = req.body.institution;
+  fs.readFile(dataPath, "utf8", function(err,data) {
+    if (err) {
+      console.log("Error->", err);
+      res.status(500).send(err);
+    } else {
+      var expenseToUpdate = JSON.parse(data);
+      var didUpdateHappen = false;
+      _.forEach(expenseToUpdate.expenses, function(expense) {
+        if (expense.institution !== undefined) {
+          if (expense.institution === validInstitution) {
+            expense.duedate = validDueDate;
+            didUpdateHappen = true;
+          }
+        }
+      });
+      if (didUpdateHappen) {
+        fs.writeFile(dataPath, JSON.stringify(expenseToUpdate, null, "  "), function(error) {
+          if (err) {
+            console.log("Error saving file ->", err);
+            res.status(500).send(err);
+          } else {
+            res.status(200).send(expenseToUpdate.expenses);
+          }
+        });
+      } else {
+        res.status(422).send(new Error("Group " + validInstitution + " was not found in expenses."));
+      }
+    }
+  });
 });
 
 app.listen(3000, function () {
