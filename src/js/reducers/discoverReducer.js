@@ -30,35 +30,14 @@ export default function discoverReducer(state=initialState, actions) {
       };
     }
     case "INSTITUTION_SAVE_FULFILLED": {
-      if (actions.payload.error !== undefined) {
-        return {...state,
-          userInputErrorMessage: undefined,
-          saving: false,
-          saved: false,
-          error: actions.payload.error
-        }
-      } else {
-        return {...state,
-          institution: actions.payload.institution,
-          dueDate: actions.payload.dueDate,
-          dueDateUnformatted: actions.payload.dueDate,
-          userInputErrorMessage: undefined,
-          saving: false,
-          saved: true,
-          error: undefined
-        }
-      }
-    }
-    case "INSTITUTION_SAVE": {
       return {...state,
         institution: actions.payload.institution,
         dueDate: actions.payload.dueDate,
-        dueDateUnformatted: actions.payload.dueDate,
         userInputErrorMessage: undefined,
         saving: false,
         saved: true,
         error: undefined
-      };
+      }
     }
     case "INSTITUTION_UPDATE_ERROR": {
       return {...state,
