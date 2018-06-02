@@ -98,15 +98,11 @@ app.post("/balance", function (req, res) {
   });
 })
 
-// TODO: request body should include institution id.
-// TODO: route should be changed to /updateduedate
 // TODO: should validate date is ####-##-## where -##- is valid only if it is 1-12 and -##
 //       is valid only when 1-31. Otherwise return bad request with good msg.
 // TODO: expense.institution should be renamed to expense.groupid
-app.post("/institution/:institutionId", function (req, res) {
+app.post("/groupupdateduedate", function (req, res) {
   console.log("Post institution received:", req.body);
-  var routeInstitutionId = req.params.institutionId;
-  console.log("route params", routeInstitutionId);
   var validDueDate = req.body.dueDate;
   var validInstitution = req.body.institution;
   fs.readFile(dataPath, "utf8", function(err,data) {
