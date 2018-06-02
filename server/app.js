@@ -98,10 +98,17 @@ app.post("/balance", function (req, res) {
   });
 })
 
-// TODO: should validate date is ####-##-## where -##- is valid only if it is 1-12 and -##
-//       is valid only when 1-31. Otherwise return bad request with good msg.
 app.post("/groupupdateduedate", function (req, res) {
   console.log("Post institution received:", req.body);
+  var hasError = (moment(req.body.dueDate, "YYYY-MM-DD", true).isValid() === false);
+  if (hasError || (req.body.institution === undefined))
+  {
+    var badRequestError = JSON.stringify(req.body) + " is not valid, check dueDate is in YYYY-MM-DD format, and groupid has a value.";
+    console.log("Bad request error:", badRequestError);
+    res.status(400).send({error: badRequestError});
+    return;
+  }
+
   var validDueDate = req.body.dueDate;
   var validInstitution = req.body.institution;
   fs.readFile(dataPath, "utf8", function(err,data) {
@@ -131,7 +138,8 @@ app.post("/groupupdateduedate", function (req, res) {
           }
         });
       } else {
-        res.status(422).send(new Error("Group " + validInstitution + " was not found in expenses."));
+        var unprocessableError = "Group " + validInstitution + " was not found in expenses."
+        res.status(422).send({error: unprocessableError});
       }
     }
   });
