@@ -1,11 +1,9 @@
 // TODO: Rename Discover.js to GroupDueDateUpdate
 // TODO: Rename DiscoverAction to GroupDueDateUpdateActions
-// TODO: Rename institutionDueDateChange to GroupDueDateChange
-// TODO: Rename institutionClientDueDateChange to GroupClientDueDateChange
 // TODO: Rename "store" institution to groupId
 import React from "react";
 import { connect } from "react-redux";
-import { institutionDueDateChange, institutionClientDueDateChange } from "../../actions/DiscoverActions"
+import { groupDueDateChange, groupClientDueDateChange } from "../../actions/DiscoverActions"
 import { fetchExpenses } from "../../actions/ExpenseActions.js"
 
 @connect((store) => {
@@ -24,11 +22,11 @@ export default class Discover extends React.Component {
   }
 
   dueDateChange(e) {
-    this.props.dispatch(institutionClientDueDateChange(e.target.value));
+    this.props.dispatch(groupClientDueDateChange(e.target.value));
   }
 
   update(e) {
-    this.props.dispatch(institutionDueDateChange({
+    this.props.dispatch(groupDueDateChange({
       groupId: "discover",
       dueDate: this.props.dueDateUnformatted
     }));

@@ -14,14 +14,14 @@ function ValidateDate(userInput) {
   };
 }
 
-export function institutionClientDueDateChange(dueDateChange) {
+export function groupClientDueDateChange(dueDateChange) {
   return {
     type: "INSTITUTION_DUEDATE_CHANGING",
     payload: dueDateChange
   };
 }
 
-export function institutionDueDateChange(institutionDueDateUpdate) {
+export function groupDueDateChange(institutionDueDateUpdate) {
   var institutionSaveEndpoint = "http://localhost:3000/groupupdateduedate";
   var errorInfo = {
     institution: institutionDueDateUpdate.groupId,
