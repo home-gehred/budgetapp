@@ -135,8 +135,8 @@ export default function expenseReducer(state=initialState, actions) {
     }
     case "INSTITUTION_SAVE_FULFILLED": {
       var updatedExpenses = state.expenses.map((expense) => {
-        if (expense.institution !== undefined) {
-          if (expense.institution === actions.payload.data.institution)
+        if (expense.groupid !== undefined) {
+          if (expense.groupid === actions.payload.data.institution)
           {
             expense.duedate = moment(actions.payload.data.duedate, "YYYY-MM-DD");
           }

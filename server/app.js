@@ -100,7 +100,6 @@ app.post("/balance", function (req, res) {
 
 // TODO: should validate date is ####-##-## where -##- is valid only if it is 1-12 and -##
 //       is valid only when 1-31. Otherwise return bad request with good msg.
-// TODO: expense.institution should be renamed to expense.groupid
 app.post("/groupupdateduedate", function (req, res) {
   console.log("Post institution received:", req.body);
   var validDueDate = req.body.dueDate;
@@ -113,8 +112,8 @@ app.post("/groupupdateduedate", function (req, res) {
       var expenseToUpdate = JSON.parse(data);
       var didUpdateHappen = false;
       _.forEach(expenseToUpdate.expenses, function(expense) {
-        if (expense.institution !== undefined) {
-          if (expense.institution === validInstitution) {
+        if (expense.groupid !== undefined) {
+          if (expense.groupid === validInstitution) {
             expense.duedate = validDueDate;
             didUpdateHappen = true;
           }

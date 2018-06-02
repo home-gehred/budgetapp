@@ -1,3 +1,5 @@
+//TODO: Rename discoverReducer.js to GroupDueDateUpdateReducer.js
+//TODO: Rename initialState.institution to initialState.groupId
 const initialState = {
   institution: "",
   dueDate: "",

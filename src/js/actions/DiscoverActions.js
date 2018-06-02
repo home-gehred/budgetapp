@@ -1,3 +1,7 @@
+// TODO: rename DiscoverActions.js to GroupDueDateUpdateActions
+// TODO: rename INSTITUTION_DUEDATE_CHANGING to GROUP_CLIENT_DUEDATE_CHANGING
+// TODO: rename INSTITUTION_SAVE to GROUP_SAVE
+// TODO: rename INSTITUTION_UPDATE_ERROR to GROUP_CLIENT_UPDATE_ERROR
 import axios from "axios";
 import moment from "moment";
 

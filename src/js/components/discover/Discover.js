@@ -1,3 +1,9 @@
+// TODO: Rename Discover.js to GroupDueDateUpdate
+// TODO: Rename DiscoverAction to GroupDueDateUpdateActions
+// TODO: Rename institutionDueDateChange to GroupDueDateChange
+// TODO: Rename institutionClientDueDateChange to GroupClientDueDateChange
+// TODO: Rename "store" institution to groupId
+// TODO: Rename update paramter institution to groupId
 import React from "react";
 import { connect } from "react-redux";
 import { institutionDueDateChange, institutionClientDueDateChange } from "../../actions/DiscoverActions"
