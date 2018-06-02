@@ -20,28 +20,28 @@
       "id": 3,
       "name": "Max Education",
       "amount": 240,
-      "duedate": "2018-06-26",
+      "duedate": "2018-06-08",
       "groupid": "discover"
     },
     {
       "id": 4,
       "name": "Charlotte Education",
       "amount": 240,
-      "duedate": "2018-06-26",
+      "duedate": "2018-06-08",
       "groupid": "discover"
     },
     {
       "id": 5,
       "name": "Car Savings",
       "amount": 200,
-      "duedate": "2018-06-26",
+      "duedate": "2018-06-08",
       "groupid": "discover"
     },
     {
       "id": 6,
       "name": "Vacation Savings",
       "amount": 150,
-      "duedate": "2018-06-26",
+      "duedate": "2018-06-08",
       "groupid": "discover"
     },
     {

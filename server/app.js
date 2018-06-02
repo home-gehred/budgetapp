@@ -101,16 +101,16 @@ app.post("/balance", function (req, res) {
 app.post("/groupupdateduedate", function (req, res) {
   console.log("Post institution received:", req.body);
   var hasError = (moment(req.body.dueDate, "YYYY-MM-DD", true).isValid() === false);
-  if (hasError || (req.body.institution === undefined))
+  if (hasError || (req.body.groupId === undefined))
   {
-    var badRequestError = JSON.stringify(req.body) + " is not valid, check dueDate is in YYYY-MM-DD format, and groupid has a value.";
+    var badRequestError = JSON.stringify(req.body) + " is not valid, check dueDate is in YYYY-MM-DD format, and groupId has a value.";
     console.log("Bad request error:", badRequestError);
     res.status(400).send({error: badRequestError});
     return;
   }
 
   var validDueDate = req.body.dueDate;
-  var validInstitution = req.body.institution;
+  var validInstitution = req.body.groupId;
   fs.readFile(dataPath, "utf8", function(err,data) {
     if (err) {
       console.log("Error->", err);

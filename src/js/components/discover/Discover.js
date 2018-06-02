@@ -3,7 +3,6 @@
 // TODO: Rename institutionDueDateChange to GroupDueDateChange
 // TODO: Rename institutionClientDueDateChange to GroupClientDueDateChange
 // TODO: Rename "store" institution to groupId
-// TODO: Rename update paramter institution to groupId
 import React from "react";
 import { connect } from "react-redux";
 import { institutionDueDateChange, institutionClientDueDateChange } from "../../actions/DiscoverActions"
@@ -30,7 +29,7 @@ export default class Discover extends React.Component {
 
   update(e) {
     this.props.dispatch(institutionDueDateChange({
-      institution: "discover",
+      groupId: "discover",
       dueDate: this.props.dueDateUnformatted
     }));
 
