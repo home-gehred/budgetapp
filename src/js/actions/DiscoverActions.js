@@ -1,7 +1,4 @@
 // TODO: rename DiscoverActions.js to GroupDueDateUpdateActions
-// TODO: rename INSTITUTION_DUEDATE_CHANGING to GROUP_CLIENT_DUEDATE_CHANGING
-// TODO: rename INSTITUTION_SAVE to GROUP_SAVE
-// TODO: rename INSTITUTION_UPDATE_ERROR to GROUP_CLIENT_UPDATE_ERROR
 import axios from "axios";
 import moment from "moment";
 
@@ -16,7 +13,7 @@ function ValidateDate(userInput) {
 
 export function groupClientDueDateChange(dueDateChange) {
   return {
-    type: "INSTITUTION_DUEDATE_CHANGING",
+    type: "GROUP_CLIENT_DUEDATE_CHANGING",
     payload: dueDateChange
   };
 }
@@ -29,12 +26,12 @@ export function groupDueDateChange(institutionDueDateUpdate) {
   }
   if (errorInfo.dueDate.hasError === false) {
     return {
-      type: "INSTITUTION_SAVE", /*INSTITUTION_UPDATE*/
+      type: "GROUP_SAVE",
       payload: axios.post(institutionSaveEndpoint, institutionDueDateUpdate)
     };
   } else {
     return {
-      type: "INSTITUTION_UPDATE_ERROR",
+      type: "GROUP_CLIENT_UPDATE_ERROR",
       payload: {...institutionDueDateUpdate,
         userInputErrorMessage: JSON.stringify(errorInfo, null, null)
       }

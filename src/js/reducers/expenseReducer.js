@@ -133,7 +133,7 @@ export default function expenseReducer(state=initialState, actions) {
         saved: true
       };
     }
-    case "INSTITUTION_SAVE_FULFILLED": {
+    case "GROUP_SAVE_FULFILLED": {
       var updatedExpenses = state.expenses.map((expense) => {
         if (expense.groupid !== undefined) {
           if (expense.groupid === actions.payload.data.institution)
