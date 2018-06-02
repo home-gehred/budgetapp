@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { institutionDueDateChange, institutionClientDueDateChange } from "../../actions/DiscoverActions"
+import { fetchExpenses } from "../../actions/ExpenseActions.js"
 
 @connect((store) => {
   return {
@@ -26,6 +27,7 @@ export default class Discover extends React.Component {
       institution: "discover",
       dueDate: this.props.dueDateUnformatted
     }));
+
   }
 //<span id="dueDateErrorMsg" style={errorMessageStyle}>{errorInfo.dueDate.message}</span>
 

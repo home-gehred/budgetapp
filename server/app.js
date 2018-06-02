@@ -130,7 +130,9 @@ app.post("/institution/:institutionId", function (req, res) {
             console.log("Error saving file ->", err);
             res.status(500).send(err);
           } else {
-            res.status(200).send(expenseToUpdate.expenses);
+            res.status(200).send({
+              institution: validInstitution,
+              duedate: validDueDate});
           }
         });
       } else {

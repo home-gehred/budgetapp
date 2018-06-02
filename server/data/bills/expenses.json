@@ -1,6 +1,6 @@
 {
   "balance": {
-    "date": "2018-05-26",
+    "date": "2018-06-01",
     "currentBalance": 2452.55
   },
   "expenses": [
@@ -20,28 +20,28 @@
       "id": 3,
       "name": "Max Education",
       "amount": 240,
-      "duedate": "2018-06-29",
+      "duedate": "2018-06-18",
       "institution": "discover"
     },
     {
       "id": 4,
       "name": "Charlotte Education",
       "amount": 240,
-      "duedate": "2018-06-29",
+      "duedate": "2018-06-18",
       "institution": "discover"
     },
     {
       "id": 5,
       "name": "Car Savings",
       "amount": 200,
-      "duedate": "2018-06-29",
+      "duedate": "2018-06-18",
       "institution": "discover"
     },
     {
       "id": 6,
       "name": "Vacation Savings",
       "amount": 150,
-      "duedate": "2018-06-29",
+      "duedate": "2018-06-18",
       "institution": "discover"
     },
     {
