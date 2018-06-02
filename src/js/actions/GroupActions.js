@@ -1,4 +1,3 @@
-// TODO: rename DiscoverActions.js to GroupDueDateUpdateActions
 import axios from "axios";
 import moment from "moment";
 

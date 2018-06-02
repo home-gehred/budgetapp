@@ -1,5 +1,3 @@
-//TODO: Rename discoverReducer.js to GroupDueDateUpdateReducer.js
-//TODO: Rename initialState.institution to initialState.groupId
 const initialState = {
   groupId: "",
   dueDate: "",
@@ -8,7 +6,7 @@ const initialState = {
   error: undefined
 };
 
-export default function discoverReducer(state=initialState, actions) {
+export default function groupReducer(state=initialState, actions) {
   switch (actions.type)
   {
     case "GROUP_CLIENT_DUEDATE_CHANGING": {

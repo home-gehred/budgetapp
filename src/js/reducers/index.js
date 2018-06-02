@@ -2,11 +2,11 @@ import { combineReducers } from "redux";
 import expenseReducer from "./expenseReducer";
 import timePeriodReducer from "./timePeriodReducer";
 import currentBalanceReducer from "./currentBalanceReducer";
-import discoverReducer from "./discoverReducer";
+import groupReducer from "./groupReducer";
 
 export default combineReducers({
   expenses: expenseReducer,
   timeperiod: timePeriodReducer,
   currentBalance: currentBalanceReducer,
-  discoverReducer: discoverReducer
+  groupReducer: groupReducer
 });

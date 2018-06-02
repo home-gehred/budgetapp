@@ -1,21 +1,19 @@
-// TODO: Rename Discover.js to GroupDueDateUpdate
-// TODO: Rename DiscoverAction to GroupDueDateUpdateActions
 import React from "react";
 import { connect } from "react-redux";
-import { groupDueDateChange, groupClientDueDateChange } from "../../actions/DiscoverActions"
+import { groupDueDateChange, groupClientDueDateChange } from "../../actions/GroupActions"
 import { fetchExpenses } from "../../actions/ExpenseActions.js"
 
 @connect((store) => {
   return {
     groupId: "discover",
-    dueDate: store.discoverReducer.dueDate,
-    dueDateUnformatted: store.discoverReducer.dueDateUnformatted,
-    userInputErrorMessage: store.discoverReducer.userInputErrorMessage,
-    error: store.discoverReducer.error
+    dueDate: store.groupReducer.dueDate,
+    dueDateUnformatted: store.groupReducer.dueDateUnformatted,
+    userInputErrorMessage: store.groupReducer.userInputErrorMessage,
+    error: store.groupReducer.error
   };
 })
 
-export default class Discover extends React.Component {
+export default class Group extends React.Component {
   constructor() {
     super();
   }
