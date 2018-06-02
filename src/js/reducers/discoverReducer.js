@@ -1,7 +1,7 @@
 //TODO: Rename discoverReducer.js to GroupDueDateUpdateReducer.js
 //TODO: Rename initialState.institution to initialState.groupId
 const initialState = {
-  institution: "",
+  groupId: "",
   dueDate: "",
   dueDateUnformatted: "",
   userInputErrorMessage: undefined,
@@ -33,7 +33,7 @@ export default function discoverReducer(state=initialState, actions) {
     }
     case "GROUP_SAVE_FULFILLED": {
       return {...state,
-        institution: actions.payload.institution,
+        groupId: actions.payload.institution,
         dueDate: actions.payload.dueDate,
         userInputErrorMessage: undefined,
         saving: false,
@@ -43,7 +43,7 @@ export default function discoverReducer(state=initialState, actions) {
     }
     case "GROUP_CLIENT_UPDATE_ERROR": {
       return {...state,
-        institution: actions.payload.institution,
+        groupId: actions.payload.institution,
         dueDate: undefined,
         userInputErrorMessage: actions.payload.userInputErrorMessage
       };
