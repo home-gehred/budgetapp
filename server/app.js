@@ -99,7 +99,7 @@ app.post("/balance", function (req, res) {
 })
 
 app.post("/groupupdateduedate", function (req, res) {
-  console.log("Post institution received:", req.body);
+  console.log("Post groupupdateduedate received:", req.body);
   var hasError = (moment(req.body.dueDate, "YYYY-MM-DD", true).isValid() === false);
   if (hasError || (req.body.groupId === undefined))
   {
@@ -110,7 +110,7 @@ app.post("/groupupdateduedate", function (req, res) {
   }
 
   var validDueDate = req.body.dueDate;
-  var validInstitution = req.body.groupId;
+  var validGroupId = req.body.groupId;
   fs.readFile(dataPath, "utf8", function(err,data) {
     if (err) {
       console.log("Error->", err);
@@ -120,7 +120,7 @@ app.post("/groupupdateduedate", function (req, res) {
       var didUpdateHappen = false;
       _.forEach(expenseToUpdate.expenses, function(expense) {
         if (expense.groupid !== undefined) {
-          if (expense.groupid === validInstitution) {
+          if (expense.groupid === validGroupId) {
             expense.duedate = validDueDate;
             didUpdateHappen = true;
           }
@@ -133,7 +133,7 @@ app.post("/groupupdateduedate", function (req, res) {
             res.status(500).send(err);
           } else {
             res.status(200).send({
-              institution: validInstitution,
+              groupId: validGroupId,
               duedate: validDueDate});
           }
         });

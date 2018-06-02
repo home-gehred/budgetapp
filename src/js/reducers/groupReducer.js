@@ -31,7 +31,7 @@ export default function groupReducer(state=initialState, actions) {
     }
     case "GROUP_SAVE_FULFILLED": {
       return {...state,
-        groupId: actions.payload.institution,
+        groupId: actions.payload.groupId,
         dueDate: actions.payload.dueDate,
         userInputErrorMessage: undefined,
         saving: false,
@@ -41,7 +41,7 @@ export default function groupReducer(state=initialState, actions) {
     }
     case "GROUP_CLIENT_UPDATE_ERROR": {
       return {...state,
-        groupId: actions.payload.institution,
+        groupId: actions.payload.groupId,
         dueDate: undefined,
         userInputErrorMessage: actions.payload.userInputErrorMessage
       };

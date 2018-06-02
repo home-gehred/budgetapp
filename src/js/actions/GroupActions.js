@@ -17,21 +17,21 @@ export function groupClientDueDateChange(dueDateChange) {
   };
 }
 
-export function groupDueDateChange(institutionDueDateUpdate) {
-  var institutionSaveEndpoint = "http://localhost:3000/groupupdateduedate";
+export function groupDueDateChange(groupDueDateUpdate) {
+  var groupSaveEndpoint = "http://localhost:3000/groupupdateduedate";
   var errorInfo = {
-    groupId: institutionDueDateUpdate.groupId,
-    dueDate: ValidateDate(institutionDueDateUpdate.dueDate)
+    groupId: groupDueDateUpdate.groupId,
+    dueDate: ValidateDate(groupDueDateUpdate.dueDate)
   }
   if (errorInfo.dueDate.hasError === false) {
     return {
       type: "GROUP_SAVE",
-      payload: axios.post(institutionSaveEndpoint, institutionDueDateUpdate)
+      payload: axios.post(groupSaveEndpoint, groupDueDateUpdate)
     };
   } else {
     return {
       type: "GROUP_CLIENT_UPDATE_ERROR",
-      payload: {...institutionDueDateUpdate,
+      payload: {...groupDueDateUpdate,
         userInputErrorMessage: JSON.stringify(errorInfo, null, null)
       }
     };
