@@ -30,7 +30,7 @@ export default function expenseReducer(state=initialState, actions) {
         error: actions.payload
       };
     }
-    case "TIMEPERIOD_CHANGE": {
+    case "ACCOUNTBUFFER_SAVE": {
       var timePeriod = actions.payload;
       var totalDue = 0;
       var updatedExpenses = state.expenses.map((expense) => {

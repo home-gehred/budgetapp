@@ -1,5 +1,6 @@
 import axios from "axios";
 import moment from "moment";
+import _ from "underscore"
 
 export function fetchExpenses() {
   return {
@@ -82,5 +83,59 @@ export function expenseDueDateChange(expenseDueDateChange) {
   return {
     type: "EXPENSE_DUEDATE_CHANGE",
     payload: expenseDueDateChange
+  }
+}
+
+export function timePeriodChangeUpdateAccountBuffer(accountUpdateInfo) {
+  var accountBuffers = accountUpdateInfo.expenses.expenses.filter((expense) => {
+    if (expense.isbuffer !== undefined) {
+      if (expense.isbuffer) {
+        return expense;
+      }
+    }
+  });
+  var timePeriodRange = accountUpdateInfo.range;
+
+  var promiseUpdates = accountBuffers.map((accountBuffer) => {
+    var dueDate = timePeriodRange.end;
+    accountBuffer.duedate = timePeriodRange.end.format("YYYY-MM-DD");
+    accountBuffer.expenseId = accountBuffer.id;
+    accountBuffer.dueDate = accountBuffer.duedate;
+    var expenseItemEndpoint = "http://localhost:3000/expenses/" + accountBuffer.id;
+    return axios.post(expenseItemEndpoint, accountBuffer);
+  });
+
+  var atleastOneSuccess = false;
+  var errorCount = 0;
+
+  axios.all(promiseUpdates)
+  .then(function(responses) {
+    _.every(responses, ((response) => {
+      if (response.status === 200) {
+        atleastOneSuccess = true;
+      } else {
+        errorCount++;
+      }
+    }));
+  }).catch(function(error) {
+    errorCount++;
+  }).finally(function() {
+    if (atleastOneSuccess) {
+      return {
+        type: "ACCOUNTBUFFER_SAVE",
+        payload: timePeriodRange
+      };
+    } else {
+      return {
+        type: "ACCOUNTBUFFER_SAVE_ERROR",
+        payload: {}
+      }
+    }
+
+  });
+
+  return {
+    type: "ACCOUNTBUFFER_SAVE_PENDING",
+    payload: {}
   }
 }

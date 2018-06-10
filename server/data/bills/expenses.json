@@ -1,7 +1,7 @@
 {
   "balance": {
     "date": "2018-06-10",
-    "currentBalance": 1646.19
+    "currentBalance": 1646.1
   },
   "expenses": [
     {
@@ -47,7 +47,7 @@
     {
       "id": 7,
       "name": "CITI Card Payment",
-      "amount": 921.84,
+      "amount": 921.87,
       "duedate": "2018-06-27"
     },
     {
@@ -97,7 +97,7 @@
       "name": "Checking Account Buffer",
       "amount": 500,
       "isbuffer": true,
-      "duedate": "2018-06-03"
+      "duedate": "2018-06-17"
     },
     {
       "id": 16,

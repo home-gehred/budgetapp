@@ -4,10 +4,12 @@ import { connect } from "react-redux";
 import "../../../../node_modules/react-daterange-picker/dist/css/react-calendar.css";
 import { timePeriodChange } from "../../actions/TimePeriodActions";
 import { currentBalanceChanged } from "../../actions/CurrentBalanceActions";
+import { timePeriodChangeUpdateAccountBuffer } from "../../actions/ExpenseActions";
 
 @connect((store) => {
   return {
-    timeperiod: store.timeperiod
+    timeperiod: store.timeperiod,
+    expenses: store.expenses
   };
 })
 export default class TimePeriod extends React.Component {
@@ -18,6 +20,10 @@ export default class TimePeriod extends React.Component {
   handleSelect(range) {
     this.props.dispatch(timePeriodChange(range));
     this.props.dispatch(currentBalanceChanged(range));
+    this.props.dispatch(timePeriodChangeUpdateAccountBuffer({
+      "range": range,
+      expenses: this.props.expenses
+    }));
   }
 
   render() {
