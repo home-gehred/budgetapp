@@ -51,7 +51,8 @@ export default class Expenses extends React.Component {
              dueDateUnformatted={dueDateUnformatted}
              isSelectedForUpdate={expense.isSelectedForUpdate}
              isEditMode={expense.isEditMode}
-             userInputErrorMessage={expense.userInputErrorMessage}/>
+             userInputErrorMessage={expense.userInputErrorMessage}
+             groupId={expense.groupid}/>
         });
         return <div class="list-group checked-list-box">
           {ExpenseComponent}

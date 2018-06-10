@@ -58,6 +58,17 @@ export default class ExpenseItem extends React.Component {
     var classForDueDateFormGroup = (errorInfo.dueDate.hasError) ? "form-group has-error": "form-group";
     var classForAmountInput = (errorInfo.amount.hasError) ? "form-control has-error": "form-control";
     var classForDueDateInput = (errorInfo.dueDate.hasError) ? "form-control has-error": "form-control";
+    var groupId = (this.props.groupId === undefined) ? "" : this.props.groupId;
+    var classGroupIcon = "";
+    switch (groupId)
+    {
+      case "discover":
+        classGroupIcon = "glyphicon glyphicon-flash";
+      break;
+      default:
+        classGroupIcon = undefined;
+      break;
+    }
     if (this.props.isEditMode) {
       return (
         <div ref="editExpense">
@@ -76,15 +87,29 @@ export default class ExpenseItem extends React.Component {
         </div>
       );
     } else {
-      return (
-        <div ref="expenses">
-          <a class={classForItem} onClick={this.selectedForEdit.bind(this)}>
-            <h4 class="list-group-item-heading">{this.props.name}</h4>
-            <p class="list-group-item-text">{formatedAmount}</p>
-            <p class="list-group-item-text"><b>Due Date:</b> <i>{this.props.duedate}</i></p>
-          </a>
-        </div>
-      );
+      if (groupId === "")
+      {
+        return (
+          <div ref="expenses">
+            <a class={classForItem} onClick={this.selectedForEdit.bind(this)}>
+              <h4 class="list-group-item-heading">{this.props.name}</h4>
+              <p class="list-group-item-text">{formatedAmount}</p>
+              <p class="list-group-item-text"><b>Due Date:</b> <i>{this.props.duedate}</i></p>
+            </a>
+          </div>
+        );
+
+      } else {
+        return (
+          <div ref="expenses">
+            <a class={classForItem} onClick={this.selectedForEdit.bind(this)}>
+              <h4 class="list-group-item-heading"><span class={classGroupIcon} aria-hidden="true"></span>{this.props.name}</h4>
+              <p class="list-group-item-text">{formatedAmount}</p>
+              <p class="list-group-item-text"><b>Due Date:</b> <i>{this.props.duedate}</i></p>
+            </a>
+          </div>
+        );
+      }
     }
   }
 }
