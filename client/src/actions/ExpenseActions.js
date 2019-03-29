@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import axios from "axios";
 import moment from "moment";
 import _ from "underscore"
@@ -26,10 +27,10 @@ export function expenseSelectedForEdit(expenseSelection) {
 function ValidateAmount(userInput) {
   var hasError = false;
   var message = "";
-  if (isNaN(Number.parseFloat(userInput))) {
+  if (isNaN(Number.parseFloat(userInput)) === true) {
     hasError = true,
     message = "Amount has to be a valid number."
-  }
+  };
   return {
       hasError: hasError,
       message: message

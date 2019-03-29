@@ -1,12 +1,10 @@
 {
-  "name": "budgetapp",
+  "name": "budgetappii",
   "version": "1.0.0",
-  "description": "React example using budget domain",
-  "main": "webpack.config.js",
+  "description": "Tracks personal expenses and teaches react",
+  "main": "index.js",
   "scripts": {
-    "dev": "./node_modules/.bin/webpack-dev-server --content-base src --inline --hot",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prod": "nodemon server/app.js & ./node_modules/.bin/webpack-dev-server --content-base src --inline --hot"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -18,45 +16,14 @@
     "webpack"
   ],
   "author": "Bob Gehred",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/home-gehred/budgetapp/issues"
   },
   "homepage": "https://github.com/home-gehred/budgetapp#readme",
+  "license": "ISC",
   "dependencies": {
-    "axios": "^0.15.2",
-    "babel-core": "^6.18.2",
-    "babel-loader": "^6.2.7",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-react-html-attrs": "^2.0.0",
-    "babel-plugin-transform-class-properties": "^6.18.0",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "body-parser": "^1.15.2",
-    "bootstrap": "^3.3.7",
-    "express": "^4.14.0",
-    "flux": "^3.1.0",
-    "moment": "^2.15.2",
-    "moment-range": "^2.2.0",
-    "react": "^15.3.2",
-    "react-bootstrap": "^0.30.6",
-    "react-daterange-picker": "^1.1.0",
-    "react-dom": "^15.3.2",
-    "react-redux": "^4.4.5",
-    "react-spinjs": "^3.0.0",
-    "redux": "^3.6.0",
-    "redux-logger": "^2.7.4",
-    "redux-promise-middleware": "^4.1.0",
-    "underscore": "^1.8.3",
-    "webpack": "^1.13.3"
-  },
-  "devDependencies": {
-    "css-loader": "^0.25.0",
-    "file-loader": "^0.9.0",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "webpack-dev-server": "^1.16.2"
+    "express": "^4.16.4",
+    "moment": "^2.24.0",
+    "underscore": "^1.9.1"
   }
 }

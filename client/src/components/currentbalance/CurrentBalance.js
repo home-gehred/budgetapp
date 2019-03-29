@@ -1,19 +1,20 @@
+/* eslint-disable no-unused-expressions */
 import React from "react";
 import moment from "moment";
-import momentRange from "moment-range"
+import momentRange from "moment-range";
 /*import CurrentBalanceStore from "../../Stores/CurrentBalanceStore";*/
 import { connect } from "react-redux";
-import { currentBalanceChanging, currentBalanceChanged, fetchBalance} from "../../actions/CurrentBalanceActions"
+import { currentBalanceChanging, currentBalanceChanged, fetchBalance} from "../../actions/CurrentBalanceActions.js";
 import * as Accounting from "../../accounting.js";
 
-@connect((store) => {
+/* @connect(store => {
   return {
     expenses: store.expenses,
     currentBalance: store.currentBalance,
     timePeriod: store.timeperiod
   };
-})
-export default class CurrentBalance extends React.Component {
+})*/
+class CurrentBalance extends React.Component {
   constructor() {
     super();
   }
@@ -104,3 +105,11 @@ export default class CurrentBalance extends React.Component {
     );
   }
 }
+
+export default connect(store => {
+  return {
+    expenses: store.expenses,
+    currentBalance: store.currentBalance,
+    timePeriod: store.timeperiod
+  };
+})(CurrentBalance);

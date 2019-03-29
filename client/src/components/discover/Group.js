@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { groupDueDateChange, groupClientDueDateChange } from "../../actions/GroupActions"
 import { fetchExpenses } from "../../actions/ExpenseActions.js"
 
-@connect((store) => {
+/*@connect((store) => {
   return {
     groupId: "discover",
     dueDate: store.groupReducer.dueDate,
@@ -11,9 +11,9 @@ import { fetchExpenses } from "../../actions/ExpenseActions.js"
     userInputErrorMessage: store.groupReducer.userInputErrorMessage,
     error: store.groupReducer.error
   };
-})
+})*/
 
-export default class Group extends React.Component {
+class Group extends React.Component {
   constructor() {
     super();
   }
@@ -59,3 +59,13 @@ export default class Group extends React.Component {
     );
   }
 }
+
+export default connect((store) => {
+  return {
+    groupId: "discover",
+    dueDate: store.groupReducer.dueDate,
+    dueDateUnformatted: store.groupReducer.dueDateUnformatted,
+    userInputErrorMessage: store.groupReducer.userInputErrorMessage,
+    error: store.groupReducer.error
+  };
+})(Group);

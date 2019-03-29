@@ -8,12 +8,12 @@ import {
   expenseAmountChange } from "../../actions/ExpenseActions"
 import { connect } from "react-redux";
 
-@connect((store) => {
+/*@connect((store) => {
   return {
     expenses: store.expenses
   };
-})
-export default class ExpenseItem extends React.Component {
+})*/
+class ExpenseItem extends React.Component {
   constructor() {
     super();
   }
@@ -113,3 +113,4 @@ export default class ExpenseItem extends React.Component {
     }
   }
 }
+export default connect()(ExpenseItem);

@@ -3,3 +3,4 @@ expenses.json
 *\.DS_Store
 npm-debug.log
 *.log
+*\client\node_modules

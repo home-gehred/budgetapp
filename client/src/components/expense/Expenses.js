@@ -1,27 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReactSpinner from "react-spinjs";
+//import ReactSpinner from "react-spinjs";
 import { connect } from "react-redux";
 import ExpenseItem from "./ExpenseItem";
 import moment from "moment";
 import momentRange from "moment-range"
 import { fetchExpenses } from "../../actions/ExpenseActions";
 
-@connect((store) => {
+/*@connect((store) => {
   return {
     timePeriod: store.timeperiod,
     expenses: store.expenses
   };
-})
-export default class Expenses extends React.Component {
+})*/
+class Expenses extends React.Component {
   constructor() {
     super();
-    this.spinnerConfig = {
+  /*  this.spinnerConfig = {
       opacity: 0,
       speed: 0.5,
       scale: 2,
       color: '#0349ba'
-    };
+    };*/
   }
 
   componentWillMount() {
@@ -30,7 +30,8 @@ export default class Expenses extends React.Component {
 
   render() {
     if (this.props.expenses.fetching) {
-      return <ReactSpinner config={this.spinnerConfig}/>
+      //return <ReactSpinner config={this.spinnerConfig}/>
+      return null;
     } else {
       if (this.props.expenses.fetched) {
         const ExpenseComponent = this.props.expenses.expenses.map((expense) => {
@@ -63,3 +64,10 @@ export default class Expenses extends React.Component {
     }
   }
 };
+
+export default connect((store) => {
+  return {
+    timePeriod: store.timeperiod,
+    expenses: store.expenses
+  };
+})(Expenses);

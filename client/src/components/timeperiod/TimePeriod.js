@@ -1,18 +1,18 @@
 import React from "react";
 import DateRangePicker from "react-daterange-picker"
 import { connect } from "react-redux";
-import "../../../../node_modules/react-daterange-picker/dist/css/react-calendar.css";
+import "../../../node_modules/react-daterange-picker/dist/css/react-calendar.css";
 import { timePeriodChange } from "../../actions/TimePeriodActions";
 import { currentBalanceChanged } from "../../actions/CurrentBalanceActions";
 import { timePeriodChangeUpdateAccountBuffer } from "../../actions/ExpenseActions";
 
-@connect((store) => {
+/*@connect((store) => {
   return {
     timeperiod: store.timeperiod,
     expenses: store.expenses
   };
-})
-export default class TimePeriod extends React.Component {
+})*/
+class TimePeriod extends React.Component {
   constructor() {
     super();
   }
@@ -41,3 +41,9 @@ export default class TimePeriod extends React.Component {
      );
   }
 };
+export default connect((store) => {
+  return {
+    timeperiod: store.timeperiod,
+    expenses: store.expenses
+  };
+})(TimePeriod);

@@ -3,9 +3,10 @@ var bodyParser = require('body-parser');
 var app = express();
 var fs = require('fs');
 var path = require('path');
-var dataPath = path.join(__dirname, "data/bills/expenses.json");
+var dataPath = path.join(__dirname, "bills/expenses.json");
 var _ = require('underscore');
 var moment = require('moment');
+const port = process.env.PORT || 5000;
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -91,6 +92,7 @@ app.post("/balance", function (req, res) {
           console.log("Error saving file ->", err);
           res.status(500).send(err);
         } else {
+          console.log("Responding to ->", persistObject.balance)
           res.status(200).send(persistObject.balance);
         }
       });
@@ -145,6 +147,12 @@ app.post("/groupupdateduedate", function (req, res) {
   });
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
-})
+app.use('/public', express.static('public'))
+// console.log that your server is up and running
+app.listen(port, () => console.log(`Listening on port ${port}`));
+
+// create a GET route
+app.get('/express_backend', (req, res) => {
+  res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
+});
+
