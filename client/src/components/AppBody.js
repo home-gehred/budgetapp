@@ -5,10 +5,6 @@ import CurrentBalance from "./currentbalance/CurrentBalance";
 import Discover from "./discover/Group";
 
 export default class AppBody extends React.Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return (
         <div>

@@ -46,6 +46,8 @@ export default function groupReducer(state=initialState, actions) {
         userInputErrorMessage: actions.payload.userInputErrorMessage
       };
     }
+    default: {
+      return {...state};
+    }
   }
-  return state;
 }

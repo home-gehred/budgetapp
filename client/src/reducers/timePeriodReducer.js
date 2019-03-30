@@ -1,5 +1,4 @@
 import moment from "moment"
-import momentRange from "moment-range"
 
 const initialState = {
   value: moment.range([moment(), moment()])
@@ -16,8 +15,9 @@ export default function timePeriodReducer(state=initialState, actions) {
         endString: range.end.format("MMM Do YYYY"),
         fullRangeString: range.start.format("MMM Do YYYY") + " to " + range.end.format("MMM Do YYYY")
       };
-      break;
+    }
+    default: {
+      return {...state};
     }
   }
-  return state;
 };

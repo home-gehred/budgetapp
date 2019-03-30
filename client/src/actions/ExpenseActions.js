@@ -28,8 +28,8 @@ function ValidateAmount(userInput) {
   var hasError = false;
   var message = "";
   if (isNaN(Number.parseFloat(userInput)) === true) {
-    hasError = true,
-    message = "Amount has to be a valid number."
+    hasError = true;
+    message = "Amount has to be a valid number.";
   };
   return {
       hasError: hasError,
@@ -94,11 +94,11 @@ export function timePeriodChangeUpdateAccountBuffer(accountUpdateInfo) {
         return expense;
       }
     }
+    return null;
   });
   var timePeriodRange = accountUpdateInfo.range;
 
   var promiseUpdates = accountBuffers.map((accountBuffer) => {
-    var dueDate = timePeriodRange.end;
     accountBuffer.duedate = timePeriodRange.end.format("YYYY-MM-DD");
     accountBuffer.expenseId = accountBuffer.id;
     accountBuffer.dueDate = accountBuffer.duedate;
@@ -107,19 +107,16 @@ export function timePeriodChangeUpdateAccountBuffer(accountUpdateInfo) {
   });
 
   var atleastOneSuccess = false;
-  var errorCount = 0;
 
   axios.all(promiseUpdates)
   .then(function(responses) {
     _.every(responses, ((response) => {
       if (response.status === 200) {
         atleastOneSuccess = true;
-      } else {
-        errorCount++;
       }
     }));
   }).catch(function(error) {
-    errorCount++;
+    // eat all errors silently
   }).finally(function() {
     if (atleastOneSuccess) {
       return {

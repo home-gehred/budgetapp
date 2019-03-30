@@ -1,5 +1,4 @@
 import React from "react";
-import { ListGroupItem } from 'react-bootstrap';
 import * as Accounting from "../../accounting.js";
 import {
   expenseSelectedForEdit,
@@ -14,10 +13,6 @@ import { connect } from "react-redux";
   };
 })*/
 class ExpenseItem extends React.Component {
-  constructor() {
-    super();
-  }
-
   selectedForEdit(e) {
     this.props.dispatch(expenseSelectedForEdit({
       expenseId: this.props.expenseId
@@ -49,7 +44,7 @@ class ExpenseItem extends React.Component {
   render() {
     var errorMessageStyle = {color: "#a94442"};
     var formatedAmount = Accounting.formatMoney(this.props.amount);
-    var classForItem = (this.props.include) ? "list-group-item list-group-item-success" : "list-group-item";
+    var classForItem = (this.props.include) ? "list-group-item list-group-item-action list-group-item-success" : "list-group-item list-group-item-action";
     var errorInfo = (this.props.userInputErrorMessage === undefined) ? {
         amount: {hasError:false},
         dueDate: {hasError:false}
@@ -63,7 +58,7 @@ class ExpenseItem extends React.Component {
     switch (groupId)
     {
       case "discover":
-        classGroupIcon = "glyphicon glyphicon-flash";
+        classGroupIcon = "oi oi-bolt";
       break;
       default:
         classGroupIcon = undefined;
@@ -72,7 +67,7 @@ class ExpenseItem extends React.Component {
     if (this.props.isEditMode) {
       return (
         <div ref="editExpense">
-          <a class={classForItem}>
+          <button class={classForItem}>
             <h4 class="list-group-item-heading">{this.props.name}</h4>
             <div class={classForAmountFormGroup}>
               <input type="text" class={classForAmountInput} value={this.props.amount} onChange={this.changeExpenseAmount.bind(this)}></input>
@@ -83,7 +78,7 @@ class ExpenseItem extends React.Component {
               <span id="dueDateErrorMsg" style={errorMessageStyle}>{errorInfo.dueDate.message}</span>
             </div>
             <button type="button" class="btn btn-primary btn-sm" onClick={this.selectedForSave.bind(this)}>Save</button>
-          </a>
+          </button>
         </div>
       );
     } else {
@@ -91,26 +86,30 @@ class ExpenseItem extends React.Component {
       {
         return (
           <div ref="expenses">
-            <a class={classForItem} onClick={this.selectedForEdit.bind(this)}>
+            <button class={classForItem} onClick={this.selectedForEdit.bind(this)}>
               <h4 class="list-group-item-heading">{this.props.name}</h4>
               <p class="list-group-item-text">{formatedAmount}</p>
               <p class="list-group-item-text"><b>Due Date:</b> <i>{this.props.duedate}</i></p>
-            </a>
+            </button>
           </div>
         );
 
       } else {
         return (
           <div ref="expenses">
-            <a class={classForItem} onClick={this.selectedForEdit.bind(this)}>
+            <button class={classForItem} onClick={this.selectedForEdit.bind(this)}>
               <h4 class="list-group-item-heading"><span class={classGroupIcon} aria-hidden="true"></span>{this.props.name}</h4>
               <p class="list-group-item-text">{formatedAmount}</p>
               <p class="list-group-item-text"><b>Due Date:</b> <i>{this.props.duedate}</i></p>
-            </a>
+            </button>
           </div>
         );
       }
     }
   }
 }
-export default connect()(ExpenseItem);
+export default connect(store => {
+  return {
+    expenses: store.expenses
+  };
+})(ExpenseItem);

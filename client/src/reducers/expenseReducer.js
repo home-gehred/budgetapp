@@ -1,5 +1,4 @@
 import moment from "moment"
-import momentRange from "moment-range"
 
 const initialState = {
   expenses: [],
@@ -9,6 +8,8 @@ const initialState = {
   error: null,
 };
 export default function expenseReducer(state=initialState, actions) {
+  var updatedExpenses = {};
+  var expenseId = {};
   switch (actions.type)
   {
     case "EXPENSES_PENDING": {
@@ -33,7 +34,7 @@ export default function expenseReducer(state=initialState, actions) {
     case "ACCOUNTBUFFER_SAVE": {
       var timePeriod = actions.payload;
       var totalDue = 0;
-      var updatedExpenses = state.expenses.map((expense) => {
+      updatedExpenses = state.expenses.map((expense) => {
         var dueDate = undefined;
         var isBuffer = (expense.isbuffer === undefined) ? false : expense.isbuffer;
         if (isBuffer) {
@@ -57,8 +58,8 @@ export default function expenseReducer(state=initialState, actions) {
       };
     }
     case "EXPENSE_SELECTED_FOR_EDIT": {
-      var expenseId = actions.payload.expenseId;
-      var updatedExpenses = state.expenses.map((expense) => {
+      expenseId = actions.payload.expenseId;
+      updatedExpenses = state.expenses.map((expense) => {
         if (expense.id === expenseId) {
           if (expense.isEditMode === true) {
             expense.isEditMode = false;
@@ -73,8 +74,8 @@ export default function expenseReducer(state=initialState, actions) {
       };
     }
     case "EXPENSE_USER_INPUT_ERROR": {
-      var expenseId = actions.payload.expenseId;
-      var updatedExpenses = state.expenses.map((expense) => {
+      expenseId = actions.payload.expenseId;
+      updatedExpenses = state.expenses.map((expense) => {
         if (expense.id === expenseId) {
           expense.userInputErrorMessage = actions.payload.userInputErrorMessage;
         }
@@ -85,9 +86,9 @@ export default function expenseReducer(state=initialState, actions) {
       };
     }
     case "EXPENSE_DUEDATE_CHANGE": {
-      var expenseId = actions.payload.expenseId;
+      expenseId = actions.payload.expenseId;
       var dueDateUnformatted = actions.payload.dueDateUnformatted;
-      var updatedExpenses = state.expenses.map((expense) => {
+      updatedExpenses = state.expenses.map((expense) => {
         if (expense.id === expenseId) {
             expense.dueDateUnformatted = dueDateUnformatted;
         }
@@ -98,9 +99,9 @@ export default function expenseReducer(state=initialState, actions) {
       };
     }
     case "EXPENSE_AMOUNT_CHANGE": {
-      var expenseId = actions.payload.expenseId;
+      expenseId = actions.payload.expenseId;
       var amount = actions.payload.amount;
-      var updatedExpenses = state.expenses.map((expense) => {
+      updatedExpenses = state.expenses.map((expense) => {
         if (expense.id === expenseId) {
             expense.amount =  amount;
         }
@@ -124,7 +125,7 @@ export default function expenseReducer(state=initialState, actions) {
       };
     }
     case "EXPENSE_SAVE_FULFILLED": {
-      var updatedExpenses = actions.payload.data.map((expense) => {
+      updatedExpenses = actions.payload.data.map((expense) => {
         return expense;
       });
       return {...state,
@@ -134,7 +135,7 @@ export default function expenseReducer(state=initialState, actions) {
       };
     }
     case "GROUP_SAVE_FULFILLED": {
-      var updatedExpenses = state.expenses.map((expense) => {
+      updatedExpenses = state.expenses.map((expense) => {
         if (expense.groupid !== undefined) {
           if (expense.groupid === actions.payload.data.groupId)
           {
@@ -147,6 +148,8 @@ export default function expenseReducer(state=initialState, actions) {
         expenses: updatedExpenses,
       };
     }
+    default: {
+      return {...state}
+    }
   }
-  return state;
 };

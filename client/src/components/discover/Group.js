@@ -1,23 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { groupDueDateChange, groupClientDueDateChange } from "../../actions/GroupActions"
-import { fetchExpenses } from "../../actions/ExpenseActions.js"
-
-/*@connect((store) => {
-  return {
-    groupId: "discover",
-    dueDate: store.groupReducer.dueDate,
-    dueDateUnformatted: store.groupReducer.dueDateUnformatted,
-    userInputErrorMessage: store.groupReducer.userInputErrorMessage,
-    error: store.groupReducer.error
-  };
-})*/
 
 class Group extends React.Component {
-  constructor() {
-    super();
-  }
-
   dueDateChange(e) {
     this.props.dispatch(groupClientDueDateChange(e.target.value));
   }

@@ -1,5 +1,4 @@
 import moment from "moment"
-import momentRange from "moment-range"
 import * as Accounting from "../accounting.js";
 
 const initialState = {
@@ -16,6 +15,8 @@ const initialState = {
 
 export default function currentBalanceReducer(state=initialState, actions) {
   var expensesDue = state.expensesDue;
+  var balanceInfo = {};
+  var currentBalanceDate = {};
   switch (actions.type)
   {
     case "CURRENT_BALANCE_CHANGING": {
@@ -23,13 +24,13 @@ export default function currentBalanceReducer(state=initialState, actions) {
         currentBalance: actions.payload
       };
     }
-    /*case "CURRENT_BALANCE_CHANGED": {
+    case "CURRENT_BALANCE_CHANGED": {
       return {...state,
         currentBalance: Accounting.formatMoney(actions.payload.balance),
         currentBalanceFormated: Accounting.formatMoney(actions.payload.balance),
         predictedBalance: Accounting.formatMoney(Accounting.unformat(actions.payload.balance) - Accounting.unformat(expensesDue))
       };
-    }*/
+    }
     case "BALANCE_SAVE_PENDING": {
       return {...state,
         saving: true,
@@ -45,8 +46,8 @@ export default function currentBalanceReducer(state=initialState, actions) {
       };
     }
     case "BALANCE_SAVE_FULFILLED": {
-      var balanceInfo = actions.payload.data;
-      var currentBalanceDate = moment(balanceInfo.date, "YYYY-MM-DD");
+      balanceInfo = actions.payload.data;
+      currentBalanceDate = moment(balanceInfo.date, "YYYY-MM-DD");
 
       return {...state,
         saving: false,
@@ -79,8 +80,8 @@ export default function currentBalanceReducer(state=initialState, actions) {
         };
     }
     case "BALANCE_FULFILLED": {
-      var balanceInfo = actions.payload.data;
-      var currentBalanceDate = moment(balanceInfo.date, "YYYY-MM-DD");
+      balanceInfo = actions.payload.data;
+      currentBalanceDate = moment(balanceInfo.date, "YYYY-MM-DD");
       return {...state,
         fetching: false,
         fetched: true,
@@ -89,6 +90,8 @@ export default function currentBalanceReducer(state=initialState, actions) {
         currentBalanceDateString: currentBalanceDate.format("MMM Do YYYY")
       }
     }
+    default: {
+      return {...state};
+    }
   }
-  return state;
 };

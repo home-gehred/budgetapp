@@ -13,9 +13,7 @@ import { timePeriodChangeUpdateAccountBuffer } from "../../actions/ExpenseAction
   };
 })*/
 class TimePeriod extends React.Component {
-  constructor() {
-    super();
-  }
+  
 
   handleSelect(range) {
     this.props.dispatch(timePeriodChange(range));
@@ -36,7 +34,7 @@ class TimePeriod extends React.Component {
           onSelect={this.handleSelect.bind(this)}
           value={this.props.timeperiod.value}
         />
-        <div class="well well-sm">{this.props.timeperiod.fullRangeString}</div>
+        <div class="card card-body bg-light">{this.props.timeperiod.fullRangeString}</div>
       </div>
      );
   }

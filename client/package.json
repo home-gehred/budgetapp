@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "moment-range": "^4.0.2",
+    "open-iconic": "^1.1.1",
     "react": "^16.8.5",
     "react-bootstrap": "^1.0.0-beta.6",
     "react-daterange-picker": "^2.0.1",

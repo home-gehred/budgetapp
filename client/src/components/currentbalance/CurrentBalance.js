@@ -1,23 +1,11 @@
 /* eslint-disable no-unused-expressions */
 import React from "react";
 import moment from "moment";
-import momentRange from "moment-range";
-/*import CurrentBalanceStore from "../../Stores/CurrentBalanceStore";*/
 import { connect } from "react-redux";
 import { currentBalanceChanging, currentBalanceChanged, fetchBalance} from "../../actions/CurrentBalanceActions.js";
 import * as Accounting from "../../accounting.js";
 
-/* @connect(store => {
-  return {
-    expenses: store.expenses,
-    currentBalance: store.currentBalance,
-    timePeriod: store.timeperiod
-  };
-})*/
 class CurrentBalance extends React.Component {
-  constructor() {
-    super();
-  }
 
   componentWillMount() {
     this.props.dispatch(fetchBalance());
@@ -47,7 +35,6 @@ class CurrentBalance extends React.Component {
       "verticalAlign": "middle",
       "width": "1%",
       "whiteSpace": "nowrap",
-      "verticalAlign": "middle",
       "borderTopRightRadius": "0",
       "borderBottomRightRadius": "0"
     };
@@ -99,7 +86,7 @@ class CurrentBalance extends React.Component {
           <span style={style}>{balance.predictedBalanceDateString}</span>
           <span style={formControl}>{balance.currentBalanceFormated} - {expenseDueFormated} = {totalDue}</span>
         </div>
-        <div class="well well-sm"></div>
+        <div class="card card-body bg-light"></div>
       </div>
 
     );

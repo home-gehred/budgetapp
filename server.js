@@ -148,6 +148,7 @@ app.post("/groupupdateduedate", function (req, res) {
 });
 
 app.use('/public', express.static('public'))
+app.use('/fonts', express.static('public'))
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
