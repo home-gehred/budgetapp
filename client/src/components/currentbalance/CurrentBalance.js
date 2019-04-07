@@ -77,8 +77,8 @@ class CurrentBalance extends React.Component {
     return (
       <div class="currentbalance-component">
         <h5>Current Balance</h5>
-        <div class="input-group">
-          <span class="input-group-addon">{balance.currentBalanceDateString}</span>
+        <div style={groupStyle}>
+          <span style={style}>{balance.currentBalanceDateString}</span>
           <input type="text" class="form-control" value={balance.currentBalance} onChange={this.changeCurrentBalance.bind(this)} onBlur={this.formatCurrentBalance.bind(this)}/>
         </div>
         <h5>Predicted Balance</h5>
