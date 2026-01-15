@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^1.13.2",
     "bootstrap": "^4.3.1",
     "moment-range": "^4.0.2",
     "open-iconic": "^1.1.1",
@@ -12,7 +12,7 @@
     "react-daterange-picker": "^2.0.1",
     "react-dom": "^16.8.5",
     "react-redux": "^6.0.1",
-    "react-scripts": "2.1.8",
+    "react-scripts": "^5.0.1",
     "react-spinjs": "^3.0.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
@@ -20,7 +20,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npx serve -s build -l 5001",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -34,5 +34,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://localhost:5000/"
+  "proxy": "http://localhost:3000/"
 }

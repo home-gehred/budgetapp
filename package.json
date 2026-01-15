@@ -22,6 +22,7 @@
   "homepage": "https://github.com/home-gehred/budgetapp#readme",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "moment": "^2.24.0",
     "underscore": "^1.9.1"

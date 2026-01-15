@@ -18,7 +18,7 @@ export function groupClientDueDateChange(dueDateChange) {
 }
 
 export function groupDueDateChange(groupDueDateUpdate) {
-  var groupSaveEndpoint = "http://localhost:3000/groupupdateduedate";
+  var groupSaveEndpoint = "/groupupdateduedate";
   var errorInfo = {
     groupId: groupDueDateUpdate.groupId,
     dueDate: ValidateDate(groupDueDateUpdate.dueDate)

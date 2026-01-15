@@ -6,8 +6,12 @@ var path = require('path');
 var dataPath = path.join(__dirname, "bills/expenses.json");
 var _ = require('underscore');
 var moment = require('moment');
-const port = process.env.PORT || 5000;
+const cors = require('cors');
+const port = process.env.PORT || 3000;
 
+app.use(cors({
+  origin: 'http://localhost:5001'
+}));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 

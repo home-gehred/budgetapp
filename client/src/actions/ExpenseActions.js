@@ -6,7 +6,7 @@ import _ from "underscore"
 export function fetchExpenses() {
   return {
     type: "EXPENSES",
-    payload: axios.get("http://localhost:3000/expenses")
+    payload: axios.get("/expenses")
   };
 };
 
@@ -51,7 +51,7 @@ amount: this.props.amount,
 dueDate: this.props.duedate
 */
 export function expenseSelectedForSave(expenseItemUpdate) {
-  var expenseItemEndpoint = "http://localhost:3000/expenses/" + expenseItemUpdate.expenseId;
+  var expenseItemEndpoint = "/expenses/" + expenseItemUpdate.expenseId;
   var errorInfo = {
     amount: ValidateAmount(expenseItemUpdate.amount),
     dueDate: ValidateDate(expenseItemUpdate.dueDate)
@@ -102,7 +102,7 @@ export function timePeriodChangeUpdateAccountBuffer(accountUpdateInfo) {
     accountBuffer.duedate = timePeriodRange.end.format("YYYY-MM-DD");
     accountBuffer.expenseId = accountBuffer.id;
     accountBuffer.dueDate = accountBuffer.duedate;
-    var expenseItemEndpoint = "http://localhost:3000/expenses/" + accountBuffer.id;
+    var expenseItemEndpoint = "/expenses/" + accountBuffer.id;
     return axios.post(expenseItemEndpoint, accountBuffer);
   });
 

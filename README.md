@@ -10,6 +10,10 @@ Use two iTerm windows and run the following commands...
 In the first iTerm cd to the root of the project window start up the server...
 
 ```
+nvm use v24.11.1
+```
+
+```
 node server.js
 ```
 

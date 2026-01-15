@@ -12,7 +12,7 @@ export function currentBalanceChanged(date, newBalance) {
   var transportBalance = (newBalance !== undefined) ? Number.parseFloat(newBalance) : undefined;
   return {
     type: "BALANCE_SAVE",
-    payload: axios.post("http://localhost:3000/balance", {
+    payload: axios.post("/balance", {
       date: transportDate,
       balance: transportBalance
     })
@@ -22,6 +22,6 @@ export function currentBalanceChanged(date, newBalance) {
 export function fetchBalance() {
   return {
     type: "BALANCE",
-    payload: axios.get("http://localhost:3000/balance")
+    payload: axios.get("/balance")
   };
 };
